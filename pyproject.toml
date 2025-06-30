@@ -1,0 +1,210 @@
+[project]
+name = "budger-ai-assistant"
+version = "2.0.0"
+description = "Advanced AI Voice Assistant with RAG capabilities for real-time customer interactions"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+keywords = ["ai", "voice-assistant", "rag", "fastapi", "langchain", "customer-service"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    # Core web framework
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    
+    # Environment and configuration
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    
+    # AI and Language Models
+    "openai>=1.10.0",
+    "langchain>=0.1.0",
+    "langchain-openai>=0.0.5",
+    "langchain-community>=0.0.20",
+    "langchain-core>=0.1.23",
+    
+    # Vector Database and Embeddings
+    "chromadb>=0.4.22",
+    "sentence-transformers>=2.2.2",
+    
+    # Document Processing
+    "pypdf>=4.0.0",
+    "python-multipart>=0.0.6",
+    "unstructured>=0.12.0",
+    "pdf2image >=1.17.0",
+    
+    # Text Processing and Utilities
+    "tiktoken>=0.5.2",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    
+    # Async and Concurrency
+    "asyncio>=3.4.3",
+    "websockets>=12.0",
+    
+    # Logging and Monitoring
+    "structlog>=23.2.0",
+    "python-json-logger>=2.0.7",
+    
+    # Security
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    
+    # HTTP client for external APIs
+    "httpx>=0.26.0",
+    "aiofiles>=23.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    # Testing
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "httpx>=0.26.0",  # for testing FastAPI
+    
+    # Code Quality
+    "black>=23.12.0",
+    "isort>=5.13.0",
+    "flake8>=7.0.0",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+    
+    # Development Tools
+    "ipython>=8.18.0",
+    "jupyter>=1.0.0",
+    "watchdog>=4.0.0",
+]
+
+production = [
+    # Production server
+    "gunicorn>=21.2.0",
+    
+    # Monitoring and observability
+    "prometheus-client>=0.19.0",
+    "sentry-sdk[fastapi]>=1.39.0",
+    
+    # Performance
+    "orjson>=3.9.0",  # Faster JSON processing
+]
+
+audio = [
+    # Audio processing for enhanced voice features
+    "speechrecognition>=3.10.0",
+    "pyaudio>=0.2.11",
+    "pydub>=0.25.1",
+    "librosa>=0.10.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/budger-ai-assistant"
+Documentation = "https://github.com/yourusername/budger-ai-assistant#readme"
+Repository = "https://github.com/yourusername/budger-ai-assistant.git"
+Issues = "https://github.com/yourusername/budger-ai-assistant/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=23.12.0",
+    "isort>=5.13.0",
+    "mypy>=1.8.0",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/venv/*",
+    "*/.venv/*",
+    "*/env/*",
+    "*/.env/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Budger - Advanced AI Voice Assistant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    #sidebar {
+      width: 300px;
+      padding: 20px;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(10px);
+      overflow-y: auto;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    #main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      position: relative;
+    }
+
+    #right-panel {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      background: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff88);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-bottom: 30px;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 212, 255, 0.5)); }
+    }
+
+    #assistant-avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #00d4ff, #ff00ff, #00ff88, #ffff00, #00d4ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      font-weight: bold;
+      color: white;
+      position: relative;
+      animation: rotate 10s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    #assistant-avatar::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: #000;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    #assistant-avatar.listening {
+      animation: pulse 1s ease-in-out infinite, rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .form-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    input, button, select {
+      padding: 15px 20px;
+      font-size: 1rem;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #00d4ff;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+
+    button {
+      background: linear-gradient(45deg, #00d4ff, #0099cc);
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #00b8e6, #007aa3);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .voice-btn {
+      background: linear-gradient(45deg, #ff4757, #ff3742);
+      flex: 1;
+    }
+
+    .voice-btn:hover {
+      background: linear-gradient(45deg, #ff3742, #ff2d3a);
+    }
+
+    .voice-btn.active {
+      background: linear-gradient(45deg, #00ff88, #00cc6a);
+      animation: recordPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes recordPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+    }
+
+    #response {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border-left: 4px solid #00d4ff;
+      color: #fff;
+      max-height: 300px;
+      overflow-y: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    #response.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .message {
+      margin-bottom: 15px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      border-left: 3px solid #00d4ff;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .user-message {
+      border-left-color: #00ff88;
+      background: rgba(0, 255, 136, 0.1);
+    }
+
+    .ai-message {
+      border-left-color: #00d4ff;
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    .sources {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .status-indicator {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .status-online {
+      background: linear-gradient(45deg, #00ff88, #00cc6a);
+      color: #000;
+    }
+
+    .status-offline {
+      background: linear-gradient(45deg, #ff4757, #ff3742);
+      color: #fff;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #00d4ff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .session-info {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .error-message {
+      color: #ff4757;
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.3);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+      
+      #sidebar, #right-panel {
+        width: 100%;
+        max-height: 200px;
+      }
+      
+      .title {
+        font-size: 2rem;
+      }
+      
+      #assistant-avatar {
+        width: 120px;
+        height: 120px;
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <div class="session-info">
+      <h3>📊 Session Info</h3>
+      <div id="session-details">
+        <p><strong>Session ID:</strong> <span id="current-session">default</span></p>
+        <p><strong>Status:</strong> <span id="connection-status">Connecting...</span></p>
+        <p><strong>Messages:</strong> <span id="message-count">0</span></p>
+      </div>
+    </div>
+    
+    <h3>💬 Chat History</h3>
+    <div id="history"></div>
+    
+    <button onclick="clearHistory()" style="margin-top: 20px; background: linear-gradient(45deg, #ff4757, #ff3742);">
+      Clear History
+    </button>
+  </div>
+
+  <div id="main-container">
+    <h1 class="title">🤖 Budger AI Assistant</h1>
+    <div class="status-indicator" id="status-indicator">🔴 Offline</div>
+
+    <div id="password-section" class="form-section">
+      <h2 style="margin-bottom: 20px;">🔐 Access Control</h2>
+      <input type="password" id="passwordInput" placeholder="Enter access password" />
+      <button onclick="checkPassword()">🚀 Unlock Assistant</button>
+      <div id="password-error" class="error-message" style="display: none;"></div>
+    </div>
+
+    <div id="chat-section" class="form-section" style="display: none;">
+      <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="auto">Auto-detect</option>
+        </select>
+        <select id="sessionSelect">
+          <option value="default">Default Session</option>
+          <option value="new">New Session</option>
+        </select>
+      </div>
+      
+      <input 
+        type="text" 
+        id="queryInput" 
+        placeholder="Ask me anything about your services..." 
+        onkeypress="handleEnter(event)" 
+      />
+      
+      <div class="button-group">
+        <button onclick="sendQuery()">💬 Send</button>
+        <button id="voiceBtn" class="voice-btn" onclick="toggleVoiceInput()">🎤 Voice</button>
+        <button onclick="stopSpeaking()">⏹️ Stop</button>
+      </div>
+      
+      <div id="response"></div>
+    </div>
+  </div>
+
+  <div id="right-panel">
+    <div id="assistant-avatar">🧠</div>
+    <div style="text-align: center;">
+      <h3 style="margin-bottom: 10px;">AI Status</h3>
+      <div id="ai-status">Ready to help</div>
+      <div style="margin-top: 20px; font-size: 0.9rem; color: #888;">
+        <p>🎯 Customer Service AI</p>
+        <p>🌐 Multi-language Support</p>
+        <p>📚 RAG-powered Knowledge</p>
+        <p>🔊 Voice Interactive</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const CORRECT_PASSWORD = "komal123";
+    const API_BASE_URL = "http://127.0.0.1:8000";
+    
+    // Global variables
+    let currentSessionId = "default";
+    let messageCount = 0;
+    let isRecording = false;
+    let recognition = null;
+    let websocket = null;
+    
+    // DOM elements
+    const elements = {
+      passwordInput: document.getElementById("passwordInput"),
+      passwordError: document.getElementById("password-error"),
+      passwordSection: document.getElementById("password-section"),
+      chatSection: document.getElementById("chat-section"),
+      queryInput: document.getElementById("queryInput"),
+      responseBox: document.getElementById("response"),
+      historyDiv: document.getElementById("history"),
+      statusIndicator: document.getElementById("status-indicator"),
+      connectionStatus: document.getElementById("connection-status"),
+      currentSession: document.getElementById("current-session"),
+      messageCountSpan: document.getElementById("message-count"),
+      aiStatus: document.getElementById("ai-status"),
+      avatar: document.getElementById("assistant-avatar"),
+      voiceBtn: document.getElementById("voiceBtn"),
+      languageSelect: document.getElementById("languageSelect"),
+      sessionSelect: document.getElementById("sessionSelect")
+    };
+
+    // Initialize the application
+    function initializeApp() {
+      setupSpeechRecognition();
+      checkAPIConnection();
+      
+      // Generate new session ID if needed
+      if (elements.sessionSelect.value === "new") {
+        currentSessionId = "session_" + Date.now();
+        elements.currentSession.textContent = currentSessionId;
+      }
+    }
+
+    // Password validation
+    function checkPassword() {
+      const password = elements.passwordInput.value;
+
+      if (password === CORRECT_PASSWORD) {
+      elements.passwordSection.style.display = "none";
+      elements.chatSection.style.display = "block";
+      elements.queryInput.focus();
+      elements.passwordError.style.display = "none";
+
+      // Generate new session ID if selected
+      if (elements.sessionSelect.value === "new") {
+        currentSessionId = "session_" + Date.now();
+        elements.currentSession.textContent = currentSessionId;
+    }
+
+    // Initialize app and WebSocket ONLY after login
+      setupSpeechRecognition();
+      checkAPIConnection();
+
+      if (!websocket || websocket.readyState === WebSocket.CLOSED) {
+        setupWebSocket();
+    }
+
+  }   else {
+      elements.passwordError.textContent = "❌ Incorrect password. Please try again.";
+      elements.passwordError.style.display = "block";
+      elements.passwordInput.value = "";
+  }
+}
+
+
+    // WebSocket setup for real-time communication
+    function setupWebSocket() {
+      try {
+        websocket = new WebSocket(`ws://127.0.0.1:8000/ws/${currentSessionId}`);
+        
+        websocket.onopen = function(event) {
+          updateConnectionStatus(true);
+          elements.aiStatus.textContent = "Connected & Ready";
+        };
+        
+        websocket.onmessage = function(event) {
+          const data = JSON.parse(event.data);
+          displayResponse(data);
+        };
+        
+        websocket.onclose = function(event) {
+          updateConnectionStatus(false);
+          elements.aiStatus.textContent = "Disconnected";
+          
+          // Attempt to reconnect after 3 seconds
+          setTimeout(() => {
+            if (!websocket || websocket.readyState === WebSocket.CLOSED) {
+              setupWebSocket();
+            }
+          }, 3000);
+        };
+        
+        websocket.onerror = function(error) {
+          console.error("WebSocket error:", error);
+          updateConnectionStatus(false);
+        };
+        
+      } catch (error) {
+        console.error("Failed to setup WebSocket:", error);
+        updateConnectionStatus(false);
+      }
+    }
+
+    // Update connection status
+    function updateConnectionStatus(isOnline) {
+      if (isOnline) {
+        elements.statusIndicator.textContent = "🟢 Online";
+        elements.statusIndicator.className = "status-indicator status-online";
+        elements.connectionStatus.textContent = "Connected";
+      } else {
+        elements.statusIndicator.textContent = "🔴 Offline";
+        elements.statusIndicator.className = "status-indicator status-offline";
+        elements.connectionStatus.textContent = "Disconnected";
+      }
+    }
+
+    // Check API connection
+    async function checkAPIConnection() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/health`);
+        const data = await response.json();
+        
+        if (data.status === "healthy") {
+          updateConnectionStatus(true);
+        }
+      } catch (error) {
+        console.error("API connection check failed:", error);
+        updateConnectionStatus(false);
+      }
+    }
+
+    // Send query via WebSocket or HTTP
+    async function sendQuery() {
+      const query = elements.queryInput.value.trim();
+      
+      if (!query) {
+        showError("Please enter a message.");
+        return;
+      }
+
+      // Show user message immediately
+      addMessageToHistory(query, null, "user");
+      elements.queryInput.value = "";
+      
+      // Show loading state
+      showLoadingState();
+
+      try {
+        if (websocket && websocket.readyState === WebSocket.OPEN) {
+          // Send via WebSocket for real-time response
+          websocket.send(JSON.stringify({
+            query: query,
+            session_id: currentSessionId,
+            language: elements.languageSelect.value
+          }));
+        } else {
+          // Fallback to HTTP API
+          const response = await fetch(`${API_BASE_URL}/chat`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              query: query,
+              session_id: currentSessionId,
+              language: elements.languageSelect.value
+            })
+          });
+
+          const data = await response.json();
+          displayResponse(data);
+        }
+      } catch (error) {
+        console.error("Error sending query:", error);
+        showError("Failed to send message. Please check your connection.");
+        hideLoadingState();
+      }
+    }
+
+    // Display AI response
+    function displayResponse(data) {
+      hideLoadingState();
+      
+      if (data.response) {
+        addMessageToHistory(data.response, data.sources, "ai");
+        speakText(data.response);
+        updateMessageCount();
+        elements.aiStatus.textContent = "Response delivered";
+        
+        // Reset status after 3 seconds
+        setTimeout(() => {
+          elements.aiStatus.textContent = "Ready to help";
+        }, 3000);
+      } else {
+        showError("Received invalid response from server.");
+      }
+    }
+
+    // Add message to chat history
+    function addMessageToHistory(message, sources = null, type = "ai") {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", `${type}-message`);
+      
+      let messageHTML = `
+        <div style="margin-bottom: 8px;">
+          <strong>${type === "user" ? "You" : "Budger AI"}:</strong>
+          <span style="font-size: 0.8rem; color: #888; float: right;">
+            ${new Date().toLocaleTimeString()}
+          </span>
+        </div>
+        <div>${message}</div>
+      `;
+      
+      if (sources && sources.length > 0) {
+        messageHTML += `<div class="sources">📚 Sources: ${sources.join(", ")}</div>`;
+      }
+      
+      messageDiv.innerHTML = messageHTML;
+      elements.historyDiv.prepend(messageDiv);
+      
+      // Animate message appearance
+      setTimeout(() => messageDiv.classList.add("show"), 100);
+    }
+
+    // Show loading state
+    function showLoadingState() {
+      elements.responseBox.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="loading"></div>
+          <span>Budger is thinking...</span>
+        </div>
+      `;
+      elements.responseBox.classList.add("show");
+      elements.aiStatus.textContent = "Processing...";
+      elements.avatar.classList.add("listening");
+    }
+
+    // Hide loading state
+    function hideLoadingState() {
+      elements.responseBox.classList.remove("show");
+      elements.avatar.classList.remove("listening");
+    }
+
+    // Show error message
+    function showError(message) {
+      elements.responseBox.innerHTML = `<div class="error-message">❌ ${message}</div>`;
+      elements.responseBox.classList.add("show");
+    }
+
+    // Update message count
+    function updateMessageCount() {
+      messageCount++;
+      elements.messageCountSpan.textContent = messageCount;
+    }
+
+    // Handle Enter key
+    function handleEnter(event) {
+      if (event.key === "Enter") {
+        sendQuery();
+      }
+    }
+
+    // Text-to-speech functionality
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // Detect language and set voice
+        const isHindi = /[\u0900-\u097F]/.test(text);
+        const selectedLang = elements.languageSelect.value;
+        
+        if (selectedLang === "hi" || isHindi) {
+          utterance.lang = "hi-IN";
+        } else {
+          utterance.lang = "en-US";
+        }
+        
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+        utterance.volume = 0.8;
+        
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Stop speech synthesis
+    function stopSpeaking() {
+      if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+        elements.aiStatus.textContent = "Speech stopped";
+      }
+    }
+
+    // Setup speech recognition
+    function setupSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      
+      if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        
+        recognition.onstart = function() {
+          isRecording = true;
+          elements.voiceBtn.textContent = "⏹️ Stop";
+          elements.voiceBtn.classList.add("active");
+          elements.avatar.classList.add("listening");
+          elements.aiStatus.textContent = "Listening...";
+        };
+        
+        recognition.onresult = function(event) {
+          const transcript = event.results[0][0].transcript;
+          elements.queryInput.value = transcript;
+          elements.aiStatus.textContent = "Voice input received";
+          sendQuery();
+        };
+        
+        recognition.onend = function() {
+          isRecording = false;
+          elements.voiceBtn.textContent = "🎤 Voice";
+          elements.voiceBtn.classList.remove("active");
+          elements.avatar.classList.remove("listening");
+          elements.aiStatus.textContent = "Ready to help";
+        };
+        
+        recognition.onerror = function(event) {
+          console.error("Speech recognition error:", event.error);
+          showError(`Voice recognition error: ${event.error}`);
+          isRecording = false;
+          elements.voiceBtn.textContent = "🎤 Voice";
+          elements.voiceBtn.classList.remove("active");
+          elements.avatar.classList.remove("listening");
+        };
+        
+        // Set language based on selection
+        recognition.lang = elements.languageSelect.value === "hi" ? "hi-IN" : "en-US";
+        
+        // Update recognition language when selection changes
+        elements.languageSelect.addEventListener("change", function() {
+          if (recognition) {
+            recognition.lang = this.value === "hi" ? "hi-IN" : "en-US";
+          }
+        });
+      }
+    }
+
+    // Toggle voice input
+    function toggleVoiceInput() {
+      if (!recognition) {
+        showError("Your browser doesn't support voice recognition.");
+        return;
+      }
+
+      if (isRecording) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    // Clear chat history
+    function clearHistory() {
+      if (confirm("Are you sure you want to clear the chat history?")) {
+        elements.historyDiv.innerHTML = "";
+        messageCount = 0;
+        elements.messageCountSpan.textContent = "0";
+        
+        // Clear session on server
+        fetch(`${API_BASE_URL}/sessions/${currentSessionId}`, {
+          method: "DELETE"
+        }).catch(error => console.error("Failed to clear server session:", error));
+      }
+    }
+
+    // Handle session selection
+    elements.sessionSelect.addEventListener("change", function() {
+      if (this.value === "new") {
+        currentSessionId = "session_" + Date.now();
+        elements.currentSession.textContent = currentSessionId;
+        clearHistory();
+        
+        // Reconnect WebSocket with new session
+        if (websocket) {
+          websocket.close();
+        }
+        setupWebSocket();
+      }
+    });
+
+    // Initialize speech synthesis voices (better voice quality)
+    window.speechSynthesis.onvoiceschanged = function() {
+      const voices = speechSynthesis.getVoices();
+      console.log("Available voices:", voices.length);
+    };
+
+    // Auto-resize input based on content
+    elements.queryInput.addEventListener("input", function() {
+      this.style.height = "auto";
+      this.style.height = Math.min(this.scrollHeight, 120) + "px";
+    });
+
+    // Handle password input enter key
+    elements.passwordInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        checkPassword();
+      }
+    });
+
+    // Focus management
+    document.addEventListener("DOMContentLoaded", function() {
+      elements.passwordInput.focus();
+    });
+
+    // Prevent form submission on enter
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+        event.preventDefault();
+      }
+    });
+
+    // Auto-reconnect WebSocket
+    setInterval(() => {
+      if (websocket && websocket.readyState === WebSocket.CLOSED) {
+        console.log("Attempting to reconnect WebSocket...");
+        setupWebSocket();
+      }
+    }, 30000); // Check every 30 seconds
+
+    // Notification for new messages (if page is not visible)
+    function showNotification(message) {
+      if (document.hidden && "Notification" in window && Notification.permission === "granted") {
+        new Notification("Budger AI Assistant", {
+          body: message.substring(0, 100) + "...",
+          icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%2300d4ff'/><text x='50' y='60' font-size='40' text-anchor='middle' fill='white'>🧠</text></svg>"
+        });
+      }
+    }
+
+    // Request notification permission
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+
+    console.log("Budger AI Assistant v2.0 - Advanced Voice AI loaded successfully! 🚀");
+  </script>
+</body>
+</html>
