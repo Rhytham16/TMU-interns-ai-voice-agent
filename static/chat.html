@@ -6,306 +6,283 @@
   <title>Budger - Advanced AI Voice Assistant</title>
   <style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      height: 100vh;
-      color: #fff;
-      overflow: hidden;
-    }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6f8fa;
+  color: #222;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
-    #sidebar {
-      width: 300px;
-      padding: 20px;
-      background: rgba(17, 17, 17, 0.95);
-      backdrop-filter: blur(10px);
-      overflow-y: auto;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
-    }
+#sidebar {
+  width: 300px;
+  padding: 20px;
+  background: #fff;
+  border-right: 1px solid #e3e7ed;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.03);
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
 
-    #main-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      position: relative;
-    }
+#main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  position: relative;
+  background: #f6f8fa;
+}
 
-    #right-panel {
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-    }
+#right-panel {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-left: 1px solid #e3e7ed;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.03);
+  padding: 20px;
+}
 
-    .title {
-      font-size: 2.5rem;
-      background: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff88);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-align: center;
-      margin-bottom: 30px;
-      animation: titleGlow 3s ease-in-out infinite;
-    }
+.title {
+  font-size: 2.5rem;
+  color: #0056b3;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
 
-    @keyframes titleGlow {
-      0%, 100% { filter: brightness(1); }
-      50% { filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 212, 255, 0.5)); }
-    }
+#assistant-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00b4d8 0%, #0056b3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 24px rgba(0,180,216,0.08);
+  border: 4px solid #fff;
+}
 
-    #assistant-avatar {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, #00d4ff, #ff00ff, #00ff88, #ffff00, #00d4ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      font-weight: bold;
-      color: white;
-      position: relative;
-      animation: rotate 10s linear infinite;
-      margin-bottom: 20px;
-    }
+#assistant-avatar.listening {
+  box-shadow: 0 0 0 6px #ffd16655;
+}
 
-    #assistant-avatar::before {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      background: #000;
-      border-radius: 50%;
-      z-index: -1;
-    }
+.form-section {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #e3e7ed;
+}
 
-    #assistant-avatar.listening {
-      animation: pulse 1s ease-in-out infinite, rotate 10s linear infinite;
-    }
+input, button, select {
+  padding: 15px 20px;
+  font-size: 1rem;
+  margin: 8px 0;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e3e7ed;
+  background: #f6f8fa;
+  color: #222;
+  transition: all 0.3s ease;
+}
 
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+input:focus, select:focus {
+  outline: none;
+  border-color: #00b4d8;
+  background: #fff;
+  box-shadow: 0 0 8px #00b4d833;
+}
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
+button {
+  background: linear-gradient(90deg, #00b4d8 0%, #0056b3 100%);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(0,180,216,0.08);
+}
 
-    .form-section {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-    }
+button:hover {
+  background: linear-gradient(90deg, #0056b3 0%, #00b4d8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px #00b4d844;
+}
 
-    input, button, select {
-      padding: 15px 20px;
-      font-size: 1rem;
-      margin: 8px 0;
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      transition: all 0.3s ease;
-    }
+button:active {
+  transform: translateY(0);
+}
 
-    input:focus, select:focus {
-      outline: none;
-      border-color: #00d4ff;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-    }
+.button-group {
+  display: flex;
+  gap: 10px;
+}
 
-    button {
-      background: linear-gradient(45deg, #00d4ff, #0099cc);
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+.voice-btn {
+  background: linear-gradient(90deg, #ffd166 0%, #ffb703 100%);
+  color: #222;
+}
 
-    button:hover {
-      background: linear-gradient(45deg, #00b8e6, #007aa3);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
-    }
+.voice-btn:hover {
+  background: linear-gradient(90deg, #ffb703 0%, #ffd166 100%);
+}
 
-    button:active {
-      transform: translateY(0);
-    }
+.voice-btn.active {
+  background: linear-gradient(90deg, #06d6a0 0%, #1b9aaa 100%);
+  color: #fff;
+}
 
-    .button-group {
-      display: flex;
-      gap: 10px;
-    }
+#response {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f6f8fa;
+  border-radius: 12px;
+  border-left: 4px solid #00b4d8;
+  color: #222;
+  max-height: 300px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,180,216,0.04);
+}
 
-    .voice-btn {
-      background: linear-gradient(45deg, #ff4757, #ff3742);
-      flex: 1;
-    }
+#response.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    .voice-btn:hover {
-      background: linear-gradient(45deg, #ff3742, #ff2d3a);
-    }
+.message {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  border-left: 3px solid #00b4d8;
+  animation: slideIn 0.3s ease-out;
+  color: #222;
+  box-shadow: 0 1px 4px rgba(0,180,216,0.03);
+}
 
-    .voice-btn.active {
-      background: linear-gradient(45deg, #00ff88, #00cc6a);
-      animation: recordPulse 1s ease-in-out infinite;
-    }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
 
-    @keyframes recordPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
-    }
+.user-message {
+  border-left-color: #06d6a0;
+  background: #e9f7f6;
+}
 
-    #response {
-      margin-top: 20px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      border-left: 4px solid #00d4ff;
-      color: #fff;
-      max-height: 300px;
-      overflow-y: auto;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-    }
+.ai-message {
+  border-left-color: #00b4d8;
+  background: #f6f8fa;
+}
 
-    #response.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.sources {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 10px;
+  font-style: italic;
+}
 
-    .message {
-      margin-bottom: 15px;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      border-left: 3px solid #00d4ff;
-      animation: slideIn 0.3s ease-out;
-    }
+.status-indicator {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
 
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+.status-online {
+  background: linear-gradient(90deg, #06d6a0 0%, #1b9aaa 100%);
+  color: #fff;
+}
 
-    .user-message {
-      border-left-color: #00ff88;
-      background: rgba(0, 255, 136, 0.1);
-    }
+.status-offline {
+  background: linear-gradient(90deg, #ffd166 0%, #ffb703 100%);
+  color: #222;
+}
 
-    .ai-message {
-      border-left-color: #00d4ff;
-      background: rgba(0, 212, 255, 0.1);
-    }
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #e3e7ed;
+  border-radius: 50%;
+  border-top-color: #00b4d8;
+  animation: spin 1s ease-in-out infinite;
+}
 
-    .sources {
-      font-size: 0.8rem;
-      color: #888;
-      margin-top: 10px;
-      font-style: italic;
-    }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
-    .status-indicator {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
+.session-info {
+  background: #f6f8fa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  border: 1px solid #e3e7ed;
+}
 
-    .status-online {
-      background: linear-gradient(45deg, #00ff88, #00cc6a);
-      color: #000;
-    }
+.error-message {
+  color: #ff4757;
+  background: #fff0f3;
+  border: 1px solid #ffb3c6;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+}
 
-    .status-offline {
-      background: linear-gradient(45deg, #ff4757, #ff3742);
-      color: #fff;
-    }
-
-    .loading {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: #00d4ff;
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .session-info {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      font-size: 0.9rem;
-    }
-
-    .error-message {
-      color: #ff4757;
-      background: rgba(255, 71, 87, 0.1);
-      border: 1px solid rgba(255, 71, 87, 0.3);
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 10px;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-        height: auto;
-        min-height: 100vh;
-      }
-      
-      #sidebar, #right-panel {
-        width: 100%;
-        max-height: 200px;
-      }
-      
-      .title {
-        font-size: 2rem;
-      }
-      
-      #assistant-avatar {
-        width: 120px;
-        height: 120px;
-        font-size: 2.5rem;
-      }
-    }
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  #sidebar, #right-panel {
+    width: 100%;
+    max-height: 200px;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  #assistant-avatar {
+    width: 100px;
+    height: 100px;
+    font-size: 2rem;
+  }
+}
   </style>
 </head>
 <body>

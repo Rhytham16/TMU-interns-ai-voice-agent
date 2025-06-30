@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cogent Infotech Login</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <img src="https://cdn.prod.website-files.com/62d02ce36ae9362d79190b3f/62d14c9d4f380278e3116cdc_logo.svg" alt="Cogent Logo" class="logo">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+      <div id="message" class="message"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      if (pass === 'komal123') {
+        message.textContent = "Login successful!";
+        message.className = "message success";
+        setTimeout(() => {
+          window.location.href = "/static/chat.html";
+        }, 1000);
+      } else {
+        message.textContent = "❌ Incorrect password.";
+        message.className = "message error";
+      }
+    });
+  </script>
+</body>
+</html>
