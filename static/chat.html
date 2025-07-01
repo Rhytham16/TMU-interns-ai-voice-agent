@@ -504,6 +504,7 @@ button:active {
     // Send query via WebSocket or HTTP
     async function sendQuery() {
       const query = elements.queryInput.value.trim();
+      const userId = localStorage.getItem("userId"); 
       
       if (!query) {
         showError("Please enter a message.");
@@ -519,33 +520,34 @@ button:active {
 
       try {
         if (websocket && websocket.readyState === WebSocket.OPEN) {
-          // Send via WebSocket for real-time response
           websocket.send(JSON.stringify({
+          query: query,
+          session_id: currentSessionId,
+          language: elements.languageSelect.value,
+          user_id: userId
+      }));
+    }   else {
+        const response = await fetch(`${API_BASE_URL}/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
             query: query,
             session_id: currentSessionId,
-            language: elements.languageSelect.value
-          }));
-        } else {
-          // Fallback to HTTP API
-          const response = await fetch(`${API_BASE_URL}/chat`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              query: query,
-              session_id: currentSessionId,
-              language: elements.languageSelect.value
-            })
-          });
+            language: elements.languageSelect.value,
+            user_id: userId
+        })
+      });
 
-          const data = await response.json();
-          displayResponse(data);
-        }
-      } catch (error) {
-        console.error("Error sending query:", error);
-        showError("Failed to send message. Please check your connection.");
-        hideLoadingState();
-      }
+        const data = await response.json();
+        displayResponse(data);
     }
+  }   catch (error) {
+      console.error("Error sending query:", error);
+      showError("Failed to send message. Please check your connection.");
+      hideLoadingState();
+  }
+  }
+  
 
     // Display AI response
     function displayResponse(data) {
