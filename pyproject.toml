@@ -3,7 +3,13 @@ name = "budger-ai-assistant"
 version = "2.0.0"
 description = "Advanced AI Voice Assistant with RAG capabilities for real-time customer interactions"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Komal Jain", email = "komal.042570@tmu.ac.in"},
+    {name = "Kunal Sharma", email = "kunal.044710@tmu.ac.in"},
+    {name = "Rhytham Jain", email = "rhytham.046557@tmu.ac.in"},
+    {name = "Anshika Jain", email = "anshika.044637@tmu.ac.in"},
+    {name = "Akriti", email = "akriti.045587@tmu.ac.in"},
+    {name = "Aadi Jain", email = "aadi.043848@tmu.ac.in"},
+    {name = "Mohit Patil", email = "mohit.patil@cogentinfo.com"}
 ]
 readme = "README.md"
 license = {text = "MIT"}
@@ -24,49 +30,44 @@ dependencies = [
     # Core web framework
     "fastapi>=0.104.0",
     "uvicorn[standard]>=0.24.0",
-    
     # Environment and configuration
     "python-dotenv>=1.0.0",
     "pydantic>=2.5.0",
     "pydantic-settings>=2.1.0",
-    
     # AI and Language Models
     "openai>=1.10.0",
     "langchain>=0.1.0",
     "langchain-openai>=0.0.5",
     "langchain-community>=0.0.20",
     "langchain-core>=0.1.23",
-    
     # Vector Database and Embeddings
     "chromadb>=0.4.22",
     "sentence-transformers>=2.2.2",
-    
     # Document Processing
     "pypdf>=4.0.0",
     "python-multipart>=0.0.6",
     "unstructured>=0.12.0",
     "pdf2image >=1.17.0",
-    
     # Text Processing and Utilities
     "tiktoken>=0.5.2",
     "numpy>=1.24.0",
     "pandas>=2.0.0",
-    
     # Async and Concurrency
     "asyncio>=3.4.3",
     "websockets>=12.0",
-    
     # Logging and Monitoring
     "structlog>=23.2.0",
     "python-json-logger>=2.0.7",
-    
     # Security
     "python-jose[cryptography]>=3.3.0",
     "passlib[bcrypt]>=1.7.4",
-    
     # HTTP client for external APIs
     "httpx>=0.26.0",
     "aiofiles>=23.2.0",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.15",
+    "mkdocstrings[python]>=0.29.1",
+    "langchain-chroma>=0.2.4",
 ]
 
 [project.optional-dependencies]
@@ -111,10 +112,10 @@ audio = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/budger-ai-assistant"
-Documentation = "https://github.com/yourusername/budger-ai-assistant#readme"
-Repository = "https://github.com/yourusername/budger-ai-assistant.git"
-Issues = "https://github.com/yourusername/budger-ai-assistant/issues"
+Homepage = "https://github.com/Rhytham16/budger-ai-assistant"
+Documentation = "https://github.com/Rhytham16/budger-ai-assistant#readme"
+Repository = "https://github.com/Rhytham16/budger-ai-assistant.git"
+Issues = "https://github.com/Rhytham16/budger-ai-assistant/issues"
 
 [build-system]
 requires = ["hatchling"]
