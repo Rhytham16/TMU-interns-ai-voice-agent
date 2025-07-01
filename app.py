@@ -1,32 +1,36 @@
+import asyncio
+import json
+import logging
+import os
+from datetime import datetime
+from logging.handlers import TimedRotatingFileHandler
+from typing import Any, Dict, List
+
+from chromadb.config import Settings
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
-from dotenv import load_dotenv
-import os
-import json
-import asyncio
-from typing import List, Dict, Any
-from datetime import datetime
-import logging
-from logging.handlers import TimedRotatingFileHandler  
-
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from fastapi.staticfiles import StaticFiles
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferWindowMemory
-from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
-from langchain_core.messages import HumanMessage, AIMessage
+from langchain.prompts import (
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate,
+)
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from pydantic import BaseModel
+
+# ───────────────────────────────────────────────
+# Logger Setup
+# ───────────────────────────────────────────────
+
 
 def setup_logger():
-    """
-    Sets up logging configuration with rotating file and console handlers.
-
-    Logs are saved in the 'logs' directory with rotation every midnight.
-    """
     log_dir = "logs"
     os.makedirs(log_dir, exist_ok=True)
     log_file = os.path.join(log_dir, "app.log")
@@ -44,21 +48,29 @@ def setup_logger():
     logger.setLevel(logging.INFO)
     logger.addHandler(handler)
 
-    # Optional: Console log output
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
+
 setup_logger()
 logger = logging.getLogger(__name__)
 
-# Load environment variables
+# ───────────────────────────────────────────────
+# Environment
+# ───────────────────────────────────────────────
+
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
-print("OpenAI key loaded:", openai_api_key[:10], "****")
 
 if not openai_api_key:
     raise ValueError("OPENAI_API_KEY not found in environment variables")
+
+print("OpenAI key loaded:", openai_api_key[:10], "****")
+
+# ───────────────────────────────────────────────
+# FastAPI App
+# ───────────────────────────────────────────────
 
 app = FastAPI(title="Budger AI Voice Assistant", version="2.0.0")
 
@@ -75,31 +87,35 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 active_connections: List[WebSocket] = []
 user_sessions: Dict[str, Any] = {}
 
+# ───────────────────────────────────────────────
+# Pydantic Models
+# ───────────────────────────────────────────────
+
+
 class QueryRequest(BaseModel):
-    """Model for user query requests."""
     query: str
     session_id: str = "default"
     language: str = "en"
 
+
 class QueryResponse(BaseModel):
-    """Model for chatbot response."""
     response: str
     sources: List[str] = []
     session_id: str
     timestamp: str
 
+
 class DocumentUploadRequest(BaseModel):
-    """Model for document upload requests."""
     file_path: str
     collection_name: str = "default"
 
-class AdvancedRAGSystem:
-    """
-    Advanced Retrieval-Augmented Generation (RAG) system for handling user queries with document context.
-    """
+# ───────────────────────────────────────────────
+# Advanced RAG System
+# ───────────────────────────────────────────────
 
+
+class AdvancedRAGSystem:
     def __init__(self):
-        """Initializes RAG system, sets up vector store and QA chain."""
         self.persist_dir = "enhanced_chroma_store"
         self.embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
         self.llm = ChatOpenAI(
@@ -115,18 +131,21 @@ class AdvancedRAGSystem:
         self.setup_qa_chain()
 
     def setup_vectorstore(self):
-        """Sets up the vector store either by loading existing or creating a new one."""
+        client_settings = Settings(anonymized_telemetry=False)
+
         if os.path.exists(self.persist_dir):
             logger.info("Loading existing vector store...")
             self.vectorstore = Chroma(
                 persist_directory=self.persist_dir,
-                embedding_function=self.embeddings
+                embedding_function=self.embeddings,
+                client_settings=client_settings
             )
         else:
             logger.info("Creating new vector store...")
             self.vectorstore = Chroma(
                 persist_directory=self.persist_dir,
-                embedding_function=self.embeddings
+                embedding_function=self.embeddings,
+                client_settings=client_settings
             )
 
         self.retriever = self.vectorstore.as_retriever(
@@ -135,16 +154,6 @@ class AdvancedRAGSystem:
         )
 
     def add_documents(self, file_path: str, collection_name: str = "default") -> bool:
-        """
-        Adds documents to the vector store after splitting into chunks.
-
-        Args:
-            file_path (str): Path to the PDF file or directory.
-            collection_name (str): Name of the collection to associate.
-
-        Returns:
-            bool: True if documents were added successfully, False otherwise.
-        """
         try:
             if file_path.endswith('.pdf'):
                 loader = PyPDFLoader(file_path)
@@ -168,7 +177,8 @@ class AdvancedRAGSystem:
             self.vectorstore.add_documents(splits)
             self.vectorstore.persist()
 
-            logger.info(f"Added {len(splits)} document chunks to collection '{collection_name}'")
+            logger.info(
+                f"Added {len(splits)} document chunks to collection '{collection_name}'")
             return True
 
         except Exception as e:
@@ -176,13 +186,14 @@ class AdvancedRAGSystem:
             return False
 
     def setup_qa_chain(self):
-        """Sets up the Conversational Retrieval QA chain with system and human prompts."""
         system_template = """You are Budger, an advanced AI customer service agent for Cogent Infotech Corporation..."""
 
-        human_template = """User Query: {question}\n\nPlease provide a helpful response..."""
+        human_template = """Context:\n{context}\n\nUser Query: {question}\n\nPlease provide a helpful response..."""
 
-        system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
-        human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+        system_message_prompt = SystemMessagePromptTemplate.from_template(
+            system_template)
+        human_message_prompt = HumanMessagePromptTemplate.from_template(
+            human_template)
 
         chat_prompt = ChatPromptTemplate.from_messages([
             system_message_prompt,
@@ -207,16 +218,6 @@ class AdvancedRAGSystem:
         )
 
     async def get_response(self, query: str, session_id: str = "default") -> Dict[str, Any]:
-        """
-        Processes a user query and returns a response with sources.
-
-        Args:
-            query (str): The user's query.
-            session_id (str): Session identifier.
-
-        Returns:
-            Dict[str, Any]: Dictionary containing response, sources, session ID, and timestamp.
-        """
         try:
             if session_id not in user_sessions:
                 user_sessions[session_id] = {
@@ -230,7 +231,7 @@ class AdvancedRAGSystem:
                 }
 
             result = await asyncio.get_event_loop().run_in_executor(
-                None, 
+                None,
                 self.qa_chain.invoke,
                 {"question": query, "chat_history": []}
             )
@@ -258,4 +259,70 @@ class AdvancedRAGSystem:
                 "timestamp": datetime.now().isoformat()
             }
 
+
 rag_system = AdvancedRAGSystem()
+
+# ───────────────────────────────────────────────
+# API Routes
+# ───────────────────────────────────────────────
+
+
+@app.get("/")
+def read_root():
+    return FileResponse("static/chat.html")
+
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+
+@app.post("/chat", response_model=QueryResponse)
+async def chat_endpoint(request: QueryRequest):
+    result = await rag_system.get_response(
+        query=request.query,
+        session_id=request.session_id
+    )
+    return QueryResponse(**result)
+
+
+@app.post("/upload")
+def upload_document(request: DocumentUploadRequest):
+    success = rag_system.add_documents(
+        file_path=request.file_path,
+        collection_name=request.collection_name
+    )
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to add documents.")
+    return {"message": "Documents added successfully."}
+
+
+@app.delete("/sessions/{session_id}")
+def delete_session(session_id: str):
+    if session_id in user_sessions:
+        del user_sessions[session_id]
+        return {"message": f"Session {session_id} cleared."}
+    else:
+        return {"message": f"Session {session_id} not found."}
+
+
+@app.websocket("/ws/{session_id}")
+async def websocket_endpoint(websocket: WebSocket, session_id: str):
+    await websocket.accept()
+    try:
+        while True:
+            data = await websocket.receive_text()
+            data_json = json.loads(data)
+
+            query = data_json.get("query", "")
+            language = data_json.get("language", "en")
+
+            result = await rag_system.get_response(
+                query=query,
+                session_id=session_id
+            )
+
+            await websocket.send_text(json.dumps(result))
+
+    except WebSocketDisconnect:
+        logger.info(f"WebSocket disconnected for session {session_id}")
