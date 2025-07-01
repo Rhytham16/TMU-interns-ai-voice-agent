@@ -1,0 +1,11 @@
+site_name: TMU AI Voice Agent Docs
+theme:
+  name: material  # Optional: install with `pip install mkdocs-material`
+
+nav:
+  - Home: index.md
+  - Overview: overview.md
+  - App: app.md
+  - Load Documents: load_documents.md
+  - Setup: setup.md
+  - Structure: structure.md
