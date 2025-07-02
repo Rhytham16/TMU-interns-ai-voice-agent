@@ -69,7 +69,7 @@ coloredlogs humanfriendly
 
 ---
 
-### 🔹 Step 4: (Optional) Install Voice Libraries
+### 🔹 Step 4: Install Voice Libraries
 
 For **speech input/output**, install these:
 
