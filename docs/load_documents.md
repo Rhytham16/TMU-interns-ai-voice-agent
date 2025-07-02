@@ -67,25 +67,5 @@ After running this script, your documents are transformed into a searchable vect
 
 You’re now ready to ask your assistant anything based on your data!
 
-🔧 Optional Improvements
-✅ Add logging for success/failure messages
-
-📊 Show progress using tqdm
-
-🔄 Schedule automatic updates to the vector store on file changes
-
-
----
-
-### ✍️ What You Should Do:
-
-1. Open `docs/load_documents.md`
-2. Paste this under your existing “What the Script Does” section — or use it to replace your current "Behind the Scenes" section
-3. Save the file
-4. Run `mkdocs serve` to preview the changes
-
----
-
-Let me know if you’d like a visual diagram showing how this flow connects to your app or FastAPI endpoints — I can make one for you!
 
 

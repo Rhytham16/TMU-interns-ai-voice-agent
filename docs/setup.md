@@ -31,42 +31,95 @@ Make sure you have the following tools installed on your system:
 ### 🔹 Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your/repo.git
-cd TMU-INTERNS-AI-VOICE-AGENT
+git clone https://github.com/Rhytham16/TMU-interns-ai-voice-agent.git
+cd TMU-interns-ai-voice-agent
+```
 
-### 🔹 Step2: Create and Activate a Virtual Environment
+---
 
+### 🔹 Step 2: Create and Activate a Virtual Environment
+
+```bash
 uv venv
-.\.venv\Scripts\activate
+.\.venv\Scriptsctivate  # Windows
+source .venv/bin/activate  # macOS/Linux
+```
 
-🪟 For Windows, use .\.venv\Scripts\activate
-🐧 For Linux/macOS, use source .venv/bin/activate
+> 🛠️ Make sure your virtual environment is activated in every new terminal session before continuing.
 
-### 🔹 Step 3: Install Dependencies
+---
 
-Using uv:
-uv pip install -r requirements.txt
+### 🔹 Step 3: Install All Required Dependencies
 
-Or with standard pip:
+This project requires several Python packages for FastAPI, LangChain, ChromaDB, OpenAI, and more.
+
+Run the following:
+
+```bash
 pip install -r requirements.txt
+```
 
-📦 This will install FastAPI, LangChain, ChromaDB, and other required libraries.
+Or manually, you can install core dependencies:
 
-### 🔹 Step 4: Run the App
+```bash
+pip install fastapi uvicorn langchain openai chromadb \
+python-dotenv pydantic aiofiles requests PyPDF2 \
+langchain-openai langchain-core langchain-community \
+langchain-text-splitters websockets numpy SQLAlchemy \
+coloredlogs humanfriendly
+```
 
+---
+
+### 🔹 Step 4: (Optional) Install Voice Libraries
+
+If your version of the project supports **speech input/output**, install these:
+
+```bash
+pip install pyaudio SpeechRecognition pyttsx3
+```
+
+> ⚠️ On Windows, `pyaudio` might need this first:
+```bash
+pip install pipwin
+pipwin install pyaudio
+```
+
+---
+
+### 🔹 Step 5: Run the App
+
+```bash
 python app.py
+```
 
-Once the server is running, open your browser and visit:
+If everything is installed correctly, the app will start at:
+
+```
 http://localhost:8000
+```
 
+You can now:
+- Use `/chat` endpoint to query your AI agent.
+- Use `/upload` to add documents.
+- Use `/ws/{session_id}` for WebSocket streaming.
 
-🚀 You're Ready to Go!
-Your app is now running locally with all dependencies installed.
-You can now begin testing endpoints, loading documents, or building a frontend for the voice agent.
+---
 
+## 🧪 Troubleshooting Tips
 
-🧪 Troubleshooting Tips
-Problem	Solution
-🔺 activate.ps1 cannot be loaded	Run Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-🔺 Module not found	Recheck if the virtual environment is activated
-🔺 localhost not loading	Ensure nothing else is using port 8000 or change the port in app.py
+| Problem                         | Solution                                                                 |
+|---------------------------------|--------------------------------------------------------------------------|
+| 🔺 `activate.ps1` error         | Run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`                |
+| 🔺 `ModuleNotFoundError`        | Make sure your virtual environment is activated                          |
+| 🔺 `localhost not loading`      | Ensure nothing else is using port 8000 or change the port in `app.py`    |
+| 🔺 `pyaudio install error`      | Use `pipwin install pyaudio` instead of plain `pip install`              |
+
+---
+
+## ✅ You're All Set!
+
+Your local server is now up and running.  
+You're ready to explore document-based conversational AI using LangChain, FastAPI, and OpenAI models.
+
+Happy coding! 🎉

@@ -50,10 +50,3 @@ The assistant uses:
 | [Setup](setup.md) | Setup and installation instructions |
 | [Structure](structure.md) | Project folder and file layout |
 
----
-
-## 📌 Architecture Diagram (Optional)
-
-> You can add an image like this:
-```markdown
-![System Architecture](images/architecture.png)
