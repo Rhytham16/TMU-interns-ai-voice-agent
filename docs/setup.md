@@ -39,7 +39,7 @@ cd TMU-interns-ai-voice-agent
 
 ```bash
 uv venv
-.\.venv\Scriptsctivate  # Windows
+.\.venv\Scripts\activate  # Windows
 source .venv/bin/activate  # macOS/Linux
 ```
 
@@ -71,7 +71,7 @@ coloredlogs humanfriendly
 
 ### 🔹 Step 4: (Optional) Install Voice Libraries
 
-If your version of the project supports **speech input/output**, install these:
+For **speech input/output**, install these:
 
 ```bash
 pip install pyaudio SpeechRecognition pyttsx3
