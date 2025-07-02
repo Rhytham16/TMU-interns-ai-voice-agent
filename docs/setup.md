@@ -20,9 +20,7 @@ Make sure you have the following tools installed on your system:
 
 ## 🖼️ Architecture Diagram
 
-![Architecture Overview](images/example.png)
-
-> 📌 Replace `example.png` with your actual diagram in `docs/images/`.
+![Architecture Overview](images/rag-diagram.jpg)
 
 ---
 
