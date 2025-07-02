@@ -1,47 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cogent Infotech Login</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Voice Agent Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <style>
+    body {
+      background: #f4f6fa;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0, 51, 160, 0.08);
+      padding: 40px 32px 32px 32px;
+      width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 24px;
+    }
+    h2 {
+      color: #0033a0;
+      margin-bottom: 24px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .input-group {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #0033a0;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 15px;
+      background: #f8fafc;
+      transition: border 0.2s;
+    }
+    input[type="email"]:focus, input[type="password"]:focus {
+      border: 1.5px solid #0033a0;
+      outline: none;
+      background: #fff;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: #0033a0;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .login-btn:hover {
+      background: #002070;
+    }
+    .message {
+      margin-top: 18px;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+    }
+    .error {
+      color: #d32f2f;
+    }
+    .success {
+      color: #388e3c;
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
-    <img src="https://cdn.prod.website-files.com/62d02ce36ae9362d79190b3f/62d14c9d4f380278e3116cdc_logo.svg" alt="Cogent Logo" class="logo">
-    <h2>Login</h2>
-    <form id="loginForm">
+    <img src="https://play-lh.googleusercontent.com/N-qM2BXj_pWsPMLCLG_UolNn0uBs5vz4CLewBV-nCgyS4FEs2Kg2X4av-rPpKq0SuA" alt="Cogent Logo" class="logo">
+
+    <form id="loginForm" autocomplete="off">
+      <h2>Login</h2>
       <div class="input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autofocus>
       </div>
       <div class="input-group">
         <label for="password">Password</label>
-        <input type="password" id="password" required />
+        <input type="password" id="password" name="password" required>
       </div>
       <button type="submit" class="login-btn">Login</button>
       <div id="message" class="message"></div>
+      <div style="margin-top:16px; text-align:center;">
+        <span>New user? <a href="#" id="showSignUp">Sign up</a></span>
+      </div>
+    </form>
+
+    <form id="signUpForm" style="display:none; width:100%;" autocomplete="off">
+      <h2 style="margin-bottom:18px;">Sign Up</h2>
+      <div class="input-group">
+        <label for="newEmail">Email</label>
+        <input type="email" id="newEmail" name="newEmail" required>
+      </div>
+      <div class="input-group">
+        <label for="newPassword">Password</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+      </div>
+      <button type="submit" class="login-btn">Sign Up</button>
+      <div id="signUpMessage" class="message"></div>
+      <div style="margin-top:16px; text-align:center;">
+        <span>Already have an account? <a href="#" id="showLogin">Login</a></span>
+      </div>
     </form>
   </div>
 
   <script>
-    const form = document.getElementById('loginForm');
-    const message = document.getElementById('message');
+    const supabaseClient = supabase.createClient(
+      "https://rxegmnsrramwsowjmzqy.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZWdtbnNycmFtd3Nvd2ptenF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNjYzNDIsImV4cCI6MjA2Njk0MjM0Mn0.5WvqTdgA10QFLtWvmJ1Pj6MnQKtMrmKHXXvB0lDIkEM"
+    );
 
-    form.addEventListener('submit', (e) => {
+    const loginForm = document.getElementById('loginForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const messageDiv = document.getElementById('message');
+    const signUpMessageDiv = document.getElementById('signUpMessage');
+    const showSignUp = document.getElementById('showSignUp');
+    const showLogin = document.getElementById('showLogin');
+
+    showSignUp.addEventListener('click', (e) => {
       e.preventDefault();
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
+      loginForm.style.display = 'none';
+      signUpForm.style.display = 'block';
+      messageDiv.textContent = '';
+    });
 
-      if (pass === 'komal123') {
-        message.textContent = "Login successful!";
-        message.className = "message success";
-        setTimeout(() => {
+    showLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      signUpForm.style.display = 'none';
+      loginForm.style.display = 'block';
+      signUpMessageDiv.textContent = '';
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          if (error.message.includes("Email not confirmed")) {
+            messageDiv.textContent = "⚠️ Please verify your email before logging in.";
+            messageDiv.className = "message error";
+          } else {
+            messageDiv.textContent = "Login failed: " + error.message;
+            messageDiv.className = "message error";
+          }
+        } else {
+          messageDiv.textContent = "✅ Login successful! Redirecting...";
+          localStorage.setItem("userId", data.user.id);
           window.location.href = "/static/chat.html";
-        }, 1000);
-      } else {
-        message.textContent = "❌ Incorrect password.";
-        message.className = "message error";
+        }
+      } catch (err) {
+        messageDiv.textContent = "Login error: " + err.message;
+        messageDiv.className = "message error";
+      }
+    });
+
+    signUpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('newEmail').value.trim();
+      const password = document.getElementById('newPassword').value;
+
+      try {
+        const { data, error } = await supabaseClient.auth.signUp({ email, password });
+
+        if (error) {
+          signUpMessageDiv.textContent = "Signup failed: " + error.message;
+          signUpMessageDiv.className = "message error";
+        } else {
+          signUpMessageDiv.textContent = "✅ Signup successful! Please verify your email before logging in.";
+          signUpMessageDiv.className = "message success";
+        }
+      } catch (err) {
+        signUpMessageDiv.textContent = "Signup error: " + err.message;
+        signUpMessageDiv.className = "message error";
       }
     });
   </script>
