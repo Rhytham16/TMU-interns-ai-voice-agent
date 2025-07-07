@@ -4,46 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cogent Infotech Login</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style1.css" />
 </head>
 <body>
-  <div class="login-container">
-    <img src="https://cdn.prod.website-files.com/62d02ce36ae9362d79190b3f/62d14c9d4f380278e3116cdc_logo.svg" alt="Cogent Logo" class="logo">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <div class="input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" required />
+  <div class="app-bg">
+    <div class="logo-section">
+      <div class="logo-img">
+        <img src="https://cdn.comparably.com/27597249/l/104568_logo_cogent-infotech-corp.png" alt="Cogent Infotech Logo" />
       </div>
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" required />
+      <h1>Cogent AI Chat</h1>
+    </div>
+    <div class="auth-card" id="authCard">
+      <h2 id="form-title">Login</h2>
+      <form id="authForm">
+        <input type="text" id="usernameOrEmail" name="login_id" placeholder="Username or Email" required />
+        <div id="register-username-group" style="display: none;">
+          <input type="text" id="registerUsername" name="username" placeholder="New Username" />
+        </div>
+        <div id="register-email-group" style="display: none;">
+          <input type="email" id="registerEmail" name="email" placeholder="Email" />
+        </div>
+        <input type="password" id="password" name="password" placeholder="Password" required />
+        <button type="submit" id="submitBtn">Login</button>
+        <div id="message" class="message"></div>
+      </form>
+      <div class="switch-link">
+        New user? <span id="toggleText" onclick="toggleForm()">Register here</span>
       </div>
-      <button type="submit" class="login-btn">Login</button>
-      <div id="message" class="message"></div>
-    </form>
+    </div>
   </div>
-
-  <script>
-    const form = document.getElementById('loginForm');
-    const message = document.getElementById('message');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-
-      if (pass === 'komal123') {
-        message.textContent = "Login successful!";
-        message.className = "message success";
-        setTimeout(() => {
-          window.location.href = "/static/chat.html";
-        }, 1000);
-      } else {
-        message.textContent = "❌ Incorrect password.";
-        message.className = "message error";
-      }
-    });
-  </script>
+  <script src="/static/script1.js"></script>
 </body>
 </html>

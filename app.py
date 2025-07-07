@@ -2,33 +2,29 @@ import asyncio
 import json
 import logging
 import os
+import sqlite3
 from datetime import datetime
 from logging.handlers import TimedRotatingFileHandler
-from typing import Any, Dict, List
+from typing import Any, Dict, List, AsyncGenerator
+import time
 
+import google.generativeai as genai
 from chromadb.config import Settings
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferWindowMemory
-from langchain.prompts import (
-    ChatPromptTemplate,
-    HumanMessagePromptTemplate,
-    SystemMessagePromptTemplate,
-)
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from pydantic import BaseModel
+import httpx
 
 # ───────────────────────────────────────────────
 # Logger Setup
 # ───────────────────────────────────────────────
-
 
 def setup_logger():
     log_dir = "logs"
@@ -52,7 +48,6 @@ def setup_logger():
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
-
 setup_logger()
 logger = logging.getLogger(__name__)
 
@@ -61,18 +56,20 @@ logger = logging.getLogger(__name__)
 # ───────────────────────────────────────────────
 
 load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")
+gemini_api_key = os.getenv("GEMINI_API_KEY")
 
-if not openai_api_key:
-    raise ValueError("OPENAI_API_KEY not found in environment variables")
+if not gemini_api_key:
+    raise ValueError("GEMINI_API_KEY not found in environment variables")
 
-print("OpenAI key loaded:", openai_api_key[:10], "****")
+# Configure Gemini
+genai.configure(api_key=gemini_api_key)
+print("Gemini API key loaded:", gemini_api_key[:10], "****")
 
 # ───────────────────────────────────────────────
 # FastAPI App
 # ───────────────────────────────────────────────
 
-app = FastAPI(title="Budger AI Voice Assistant", version="2.0.0")
+app = FastAPI(title="Budger AI Voice Assistant - Optimized", version="3.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -88,207 +85,424 @@ active_connections: List[WebSocket] = []
 user_sessions: Dict[str, Any] = {}
 
 # ───────────────────────────────────────────────
-# Pydantic Models
+# SQLite Setup with Connection Pool
 # ───────────────────────────────────────────────
 
+class DatabaseManager:
+    def __init__(self, db_path: str = "budger_users.db"):
+        self.db_path = db_path
+        self._initialize_db()
+    
+    def _initialize_db(self):
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                email TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS chat_history (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                session_id TEXT,
+                query TEXT,
+                response TEXT,
+                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users (id)
+            )
+        """)
+        conn.commit()
+        conn.close()
+    
+    def get_connection(self):
+        conn = sqlite3.connect(self.db_path)
+        conn.row_factory = sqlite3.Row
+        return conn
+
+db_manager = DatabaseManager()
+
+# ───────────────────────────────────────────────
+# Pydantic Models
+# ───────────────────────────────────────────────
 
 class QueryRequest(BaseModel):
     query: str
     session_id: str = "default"
     language: str = "en"
-
+    stream: bool = True
 
 class QueryResponse(BaseModel):
     response: str
     sources: List[str] = []
     session_id: str
     timestamp: str
-
+    response_time: float = 0.0
 
 class DocumentUploadRequest(BaseModel):
     file_path: str
     collection_name: str = "default"
 
+class SignupRequest(BaseModel):
+    username: str
+    email: str
+    password: str
+
+class LoginRequest(BaseModel):
+    login_id: str
+    password: str
+
 # ───────────────────────────────────────────────
-# Advanced RAG System
+# Optimized RAG System with Gemini Flash
 # ───────────────────────────────────────────────
 
-
-class AdvancedRAGSystem:
+class OptimizedRAGSystem:
     def __init__(self):
         self.persist_dir = "enhanced_chroma_store"
-        self.embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
-        self.llm = ChatOpenAI(
-            model_name="gpt-4",
-            temperature=0.7,
-            openai_api_key=openai_api_key,
-            streaming=True
+        # Use Google embeddings for better integration
+        self.embeddings = GoogleGenerativeAIEmbeddings(
+            model="models/embedding-001",
+            google_api_key=gemini_api_key
         )
+        
+        # Initialize Gemini Flash model
+        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        
         self.vectorstore = None
         self.retriever = None
-        self.qa_chain = None
+        self.conversation_histories = {}
         self.setup_vectorstore()
-        self.setup_qa_chain()
 
     def setup_vectorstore(self):
-        client_settings = Settings(anonymized_telemetry=False)
-
-        if os.path.exists(self.persist_dir):
-            logger.info("Loading existing vector store...")
-            self.vectorstore = Chroma(
-                persist_directory=self.persist_dir,
-                embedding_function=self.embeddings,
-                client_settings=client_settings
-            )
-        else:
-            logger.info("Creating new vector store...")
-            self.vectorstore = Chroma(
-                persist_directory=self.persist_dir,
-                embedding_function=self.embeddings,
-                client_settings=client_settings
-            )
-
-        self.retriever = self.vectorstore.as_retriever(
-            search_type="similarity",
-            search_kwargs={"k": 5}
+        """Setup vector store with optimized settings"""
+        client_settings = Settings(
+            anonymized_telemetry=False,
+            allow_reset=True
         )
 
-    def add_documents(self, file_path: str, collection_name: str = "default") -> bool:
+        self.vectorstore = Chroma(
+            persist_directory=self.persist_dir,
+            embedding_function=self.embeddings,
+            client_settings=client_settings
+        )
+        
+        # Optimized retriever settings
+        self.retriever = self.vectorstore.as_retriever(
+            search_type="similarity",
+            search_kwargs={
+                "k": 3,  # Reduced from 5 for faster retrieval
+                "fetch_k": 6  # Fetch more but return fewer
+            }
+        )
+
+    async def add_documents_async(self, file_path: str, collection_name: str = "default") -> bool:
+        """Async document addition for better performance"""
         try:
             if file_path.endswith('.pdf'):
                 loader = PyPDFLoader(file_path)
             else:
                 loader = DirectoryLoader(file_path, glob="**/*.pdf")
 
-            documents = loader.load()
+            # Run document loading in executor to avoid blocking
+            documents = await asyncio.get_event_loop().run_in_executor(
+                None, loader.load
+            )
 
             text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000,
-                chunk_overlap=200,
+                chunk_size=800,  # Slightly smaller chunks for faster processing
+                chunk_overlap=100,  # Reduced overlap
                 separators=["\n\n", "\n", ". ", " ", ""]
             )
 
             splits = text_splitter.split_documents(documents)
 
+            # Add metadata
             for split in splits:
                 split.metadata["collection"] = collection_name
                 split.metadata["timestamp"] = datetime.now().isoformat()
 
-            self.vectorstore.add_documents(splits)
-            self.vectorstore.persist()
+            # Add documents in batches for better performance
+            batch_size = 50
+            for i in range(0, len(splits), batch_size):
+                batch = splits[i:i + batch_size]
+                await asyncio.get_event_loop().run_in_executor(
+                    None, self.vectorstore.add_documents, batch
+                )
 
-            logger.info(
-                f"Added {len(splits)} document chunks to collection '{collection_name}'")
+            self.vectorstore.persist()
+            logger.info(f"Added {len(splits)} document chunks to collection '{collection_name}'")
             return True
 
         except Exception as e:
             logger.error(f"Error adding documents: {str(e)}")
             return False
 
-    def setup_qa_chain(self):
-        system_template = """You are Budger, an advanced AI customer service agent for Cogent Infotech Corporation..."""
+    def get_conversation_history(self, session_id: str) -> List[Dict]:
+        """Get conversation history for session"""
+        if session_id not in self.conversation_histories:
+            self.conversation_histories[session_id] = []
+        return self.conversation_histories[session_id]
 
-        human_template = """Context:\n{context}\n\nUser Query: {question}\n\nPlease provide a helpful response..."""
+    def update_conversation_history(self, session_id: str, user_query: str, ai_response: str):
+        """Update conversation history"""
+        history = self.get_conversation_history(session_id)
+        history.append({
+            "user": user_query,
+            "assistant": ai_response,
+            "timestamp": datetime.now().isoformat()
+        })
+        
+        # Keep only last 10 exchanges for performance
+        if len(history) > 10:
+            self.conversation_histories[session_id] = history[-10:]
 
-        system_message_prompt = SystemMessagePromptTemplate.from_template(
-            system_template)
-        human_message_prompt = HumanMessagePromptTemplate.from_template(
-            human_template)
-
-        chat_prompt = ChatPromptTemplate.from_messages([
-            system_message_prompt,
-            human_message_prompt
-        ])
-
-        memory = ConversationBufferWindowMemory(
-            memory_key="chat_history",
-            return_messages=True,
-            k=10,
-            output_key="answer"
-        )
-
-        self.qa_chain = ConversationalRetrievalChain.from_llm(
-            llm=self.llm,
-            retriever=self.retriever,
-            memory=memory,
-            combine_docs_chain_kwargs={"prompt": chat_prompt},
-            return_source_documents=True,
-            verbose=True,
-            output_key="answer"
-        )
-
-    async def get_response(self, query: str, session_id: str = "default") -> Dict[str, Any]:
+    async def get_context_documents(self, query: str) -> List[str]:
+        """Retrieve relevant documents asynchronously"""
         try:
-            if session_id not in user_sessions:
-                user_sessions[session_id] = {
-                    "memory": ConversationBufferWindowMemory(
-                        memory_key="chat_history",
-                        return_messages=True,
-                        k=10,
-                        output_key="answer"
-                    ),
-                    "created_at": datetime.now().isoformat()
-                }
-
-            result = await asyncio.get_event_loop().run_in_executor(
-                None,
-                self.qa_chain.invoke,
-                {"question": query, "chat_history": []}
+            # Run retrieval in executor to avoid blocking
+            docs = await asyncio.get_event_loop().run_in_executor(
+                None, self.retriever.get_relevant_documents, query
             )
-
+            
+            context_texts = []
             sources = []
-            if result.get("source_documents"):
-                sources = [
-                    f"Page {doc.metadata.get('page', 'N/A')} - {doc.metadata.get('source', 'Unknown')}"
-                    for doc in result["source_documents"][:3]
-                ]
+            
+            for doc in docs:
+                context_texts.append(doc.page_content)
+                source_info = f"Page {doc.metadata.get('page', 'N/A')} - {doc.metadata.get('source', 'Unknown')}"
+                sources.append(source_info)
+            
+            return context_texts, sources
+            
+        except Exception as e:
+            logger.error(f"Error retrieving context: {str(e)}")
+            return [], []
 
-            return {
-                "response": result["answer"],
+    async def stream_response(self, query: str, session_id: str = "default") -> AsyncGenerator[str, None]:
+        """Stream response from Gemini Flash"""
+        start_time = time.time()
+        
+        try:
+            # Get conversation history
+            history = self.get_conversation_history(session_id)
+            
+            # Get relevant context
+            context_texts, sources = await self.get_context_documents(query)
+            context = "\n\n".join(context_texts) if context_texts else "No relevant context found."
+            
+            # Build conversation context
+            conversation_context = ""
+            if history:
+                recent_history = history[-3:]  # Last 3 exchanges
+                for item in recent_history:
+                    conversation_context += f"User: {item['user']}\nAssistant: {item['assistant']}\n\n"
+            
+            # Enhanced system prompt for Budger
+            system_prompt = """You are Budger, an advanced AI customer service agent for Cogent Infotech Corporation. You are helpful, professional, and knowledgeable about the company's services and policies.
+
+Key Guidelines:
+- Provide accurate, helpful responses based on the context provided
+- Be conversational and friendly while maintaining professionalism
+- If you don't know something, admit it rather than guessing
+- Keep responses concise but comprehensive
+- Use the conversation history to maintain context
+
+Previous Conversation:
+{conversation_context}
+
+Relevant Context:
+{context}
+
+Current User Query: {query}
+
+Please provide a helpful and accurate response:"""
+
+            prompt = system_prompt.format(
+                conversation_context=conversation_context,
+                context=context,
+                query=query
+            )
+            
+            # Stream response from Gemini
+            response = await asyncio.get_event_loop().run_in_executor(
+                None, self.model.generate_content, prompt
+            )
+            
+            full_response = response.text
+            
+            # Stream the response word by word for real-time effect
+            words = full_response.split()
+            streamed_response = ""
+            
+            for i, word in enumerate(words):
+                streamed_response += word + " "
+                
+                # Send partial response
+                yield json.dumps({
+                    "type": "partial",
+                    "content": word + " ",
+                    "full_response": streamed_response.strip(),
+                    "sources": sources,
+                    "session_id": session_id
+                })
+                
+                # Small delay for streaming effect
+                await asyncio.sleep(0.05)
+            
+            # Update conversation history
+            self.update_conversation_history(session_id, query, full_response)
+            
+            response_time = time.time() - start_time
+            
+            # Send final response
+            yield json.dumps({
+                "type": "complete",
+                "content": full_response,
                 "sources": sources,
                 "session_id": session_id,
+                "response_time": response_time,
                 "timestamp": datetime.now().isoformat()
-            }
+            })
+            
+        except Exception as e:
+            logger.error(f"Error streaming response: {str(e)}")
+            yield json.dumps({
+                "type": "error",
+                "content": "I apologize, but I'm experiencing technical difficulties. Please try again in a moment.",
+                "sources": [],
+                "session_id": session_id,
+                "timestamp": datetime.now().isoformat()
+            })
 
+    async def get_response(self, query: str, session_id: str = "default") -> Dict[str, Any]:
+        """Get complete response (non-streaming)"""
+        start_time = time.time()
+        
+        try:
+            # Get conversation history
+            history = self.get_conversation_history(session_id)
+            
+            # Get relevant context
+            context_texts, sources = await self.get_context_documents(query)
+            context = "\n\n".join(context_texts) if context_texts else "No relevant context found."
+            
+            # Build conversation context
+            conversation_context = ""
+            if history:
+                recent_history = history[-3:]
+                for item in recent_history:
+                    conversation_context += f"User: {item['user']}\nAssistant: {item['assistant']}\n\n"
+            
+            system_prompt = """You are Budger, an advanced AI customer service agent for Cogent Infotech Corporation. You are helpful, professional, and knowledgeable about the company's services and policies.
+
+Previous Conversation:
+{conversation_context}
+
+Relevant Context:
+{context}
+
+Current User Query: {query}
+
+Please provide a helpful and accurate response:"""
+
+            prompt = system_prompt.format(
+                conversation_context=conversation_context,
+                context=context,
+                query=query
+            )
+            
+            # Get response from Gemini
+            response = await asyncio.get_event_loop().run_in_executor(
+                None, self.model.generate_content, prompt
+            )
+            
+            full_response = response.text
+            
+            # Update conversation history
+            self.update_conversation_history(session_id, query, full_response)
+            
+            response_time = time.time() - start_time
+            
+            return {
+                "response": full_response,
+                "sources": sources,
+                "session_id": session_id,
+                "timestamp": datetime.now().isoformat(),
+                "response_time": response_time
+            }
+            
         except Exception as e:
             logger.error(f"Error getting AI response: {str(e)}")
             return {
                 "response": "I apologize, but I'm experiencing technical difficulties. Please try again in a moment.",
                 "sources": [],
                 "session_id": session_id,
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
+                "response_time": time.time() - start_time
             }
 
-
-rag_system = AdvancedRAGSystem()
+# Initialize optimized RAG system
+rag_system = OptimizedRAGSystem()
 
 # ───────────────────────────────────────────────
 # API Routes
 # ───────────────────────────────────────────────
 
-
 @app.get("/")
+def read_root():
+    return FileResponse("static/login.html")
+
+@app.get("/home")
 def read_root():
     return FileResponse("static/chat.html")
 
-
 @app.get("/health")
-def health_check():
-    return {"status": "healthy"}
-
+async def health_check():
+    return {
+        "status": "healthy",
+        "model": "gemini-1.5-flash",
+        "timestamp": datetime.now().isoformat()
+    }
 
 @app.post("/chat", response_model=QueryResponse)
 async def chat_endpoint(request: QueryRequest):
-    result = await rag_system.get_response(
-        query=request.query,
-        session_id=request.session_id
-    )
+    """Standard chat endpoint (non-streaming)"""
+    result = await rag_system.get_response(query=request.query, session_id=request.session_id)
+    
+    # Save to database
+    conn = db_manager.get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT id FROM users WHERE username = ? OR email = ?", (request.session_id, request.session_id))
+    user = cursor.fetchone()
+    
+    if user:
+        cursor.execute(
+            "INSERT INTO chat_history (user_id, session_id, query, response) VALUES (?, ?, ?, ?)",
+            (user["id"], request.session_id, request.query, result["response"])
+        )
+        conn.commit()
+    
+    conn.close()
+    
     return QueryResponse(**result)
 
+@app.post("/chat/stream")
+async def chat_stream_endpoint(request: QueryRequest):
+    """Streaming chat endpoint"""
+    async def generate():
+        async for chunk in rag_system.stream_response(request.query, request.session_id):
+            yield f"data: {chunk}\n\n"
+    
+    return StreamingResponse(generate(), media_type="text/plain")
 
 @app.post("/upload")
-def upload_document(request: DocumentUploadRequest):
-    success = rag_system.add_documents(
+async def upload_document(request: DocumentUploadRequest):
+    """Upload and process documents"""
+    success = await rag_system.add_documents_async(
         file_path=request.file_path,
         collection_name=request.collection_name
     )
@@ -296,33 +510,87 @@ def upload_document(request: DocumentUploadRequest):
         raise HTTPException(status_code=500, detail="Failed to add documents.")
     return {"message": "Documents added successfully."}
 
+@app.post("/signup")
+async def signup_user(request: SignupRequest):
+    """User registration"""
+    conn = db_manager.get_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+            (request.username, request.email, request.password)
+        )
+        conn.commit()
+        return {"message": "User registered successfully."}
+    except sqlite3.IntegrityError:
+        return JSONResponse(status_code=400, content={"error": "Username or email already exists."})
+    finally:
+        conn.close()
+
+@app.post("/login")
+async def login_user(request: LoginRequest):
+    """User login"""
+    conn = db_manager.get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users WHERE username = ? OR email = ?", (request.login_id, request.login_id))
+    user = cursor.fetchone()
+    conn.close()
+    
+    if user and user["password"] == request.password:
+        return {"message": "Login successful", "username": user["username"]}
+    else:
+        return JSONResponse(status_code=401, content={"error": "Invalid username/email or password."})
 
 @app.delete("/sessions/{session_id}")
-def delete_session(session_id: str):
+async def delete_session(session_id: str):
+    """Clear session data"""
     if session_id in user_sessions:
         del user_sessions[session_id]
-        return {"message": f"Session {session_id} cleared."}
-    else:
-        return {"message": f"Session {session_id} not found."}
-
+    if session_id in rag_system.conversation_histories:
+        del rag_system.conversation_histories[session_id]
+    return {"message": f"Session {session_id} cleared."}
 
 @app.websocket("/ws/{session_id}")
 async def websocket_endpoint(websocket: WebSocket, session_id: str):
+    """Real-time WebSocket endpoint with streaming"""
     await websocket.accept()
+    active_connections.append(websocket)
+    
     try:
         while True:
             data = await websocket.receive_text()
             data_json = json.loads(data)
-
+            
             query = data_json.get("query", "")
-            language = data_json.get("language", "en")
-
-            result = await rag_system.get_response(
-                query=query,
-                session_id=session_id
-            )
-
-            await websocket.send_text(json.dumps(result))
-
+            stream = data_json.get("stream", True)
+            
+            if stream:
+                # Send streaming response
+                async for chunk in rag_system.stream_response(query, session_id):
+                    await websocket.send_text(chunk)
+            else:
+                # Send complete response
+                result = await rag_system.get_response(query, session_id)
+                await websocket.send_text(json.dumps(result))
+                
     except WebSocketDisconnect:
+        active_connections.remove(websocket)
         logger.info(f"WebSocket disconnected for session {session_id}")
+    except Exception as e:
+        logger.error(f"WebSocket error: {str(e)}")
+        if websocket in active_connections:
+            active_connections.remove(websocket)
+
+# ───────────────────────────────────────────────
+# Startup Event
+# ───────────────────────────────────────────────
+
+@app.on_event("startup")
+async def startup_event():
+    logger.info("Budger AI Assistant started with Gemini Flash optimization")
+    logger.info(f"Active model: gemini-1.5-flash")
+    logger.info("Real-time streaming enabled")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
