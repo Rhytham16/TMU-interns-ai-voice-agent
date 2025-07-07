@@ -1,52 +1,67 @@
-# 🎙️ TMU Interns AI Voice Agent
+# 🎙️ TMU Interns AI Voice Agent – Budger
 
-Welcome to the official documentation for the **AI-Powered Voice Agent** developed by interns at **Teerthanker Mahaveer University (TMU)**.  
-This intelligent system is designed to interact with users through **natural voice-based conversations**, enabling efficient document search and query resolution using modern AI technologies.
+Welcome to the official documentation for **Budger**, an AI-powered voice and chat assistant developed by interns at **Teerthanker Mahaveer University (TMU)** in collaboration with **Cogent Infotech Corporation**.
+
+This intelligent system supports **natural voice and text-based conversations**, enabling efficient document search and real-time query resolution using cutting-edge AI tools.
 
 ---
 
 ## 🧠 Project Overview
 
-This project combines **speech recognition**, **natural language understanding**, and **vector-based document retrieval** to create a smart assistant capable of understanding and responding to user queries via voice.
+This project combines **speech recognition**, **natural language understanding**, **vector-based document retrieval**, and **real-time AI streaming** to create a smart, scalable assistant.
 
 The assistant uses:
-- 🗣️ **Voice input & output**
-- 🤖 **FastAPI** backend to manage requests
-- 🧾 **LangChain + ChromaDB** for document parsing and vector-based search
-- 🔗 **OpenAI APIs** or other LLMs for generating natural responses
+
+- 🗣️ Voice + text input/output via a custom ChatGPT-style UI
+- 🤖 FastAPI backend with WebSocket support
+- 🧾 LangChain + ChromaDB for document embedding and semantic search
+- ✨ Gemini 1.5 Flash (Google Generative AI) for high-speed, context-aware response generation
+- 🧠 SQLite database for user authentication and chat history logging
 
 ---
 
 ## ✨ Key Features
 
-✅ Voice-based interaction  
-✅ Document ingestion with real-time querying  
+✅ Voice + text interaction  
+✅ Real-time streaming AI responses  
+✅ Document ingestion with vector-based querying  
 ✅ Fast and scalable FastAPI backend  
-✅ Semantic search using embeddings  
-✅ Easy to deploy and extend
+✅ User login/signup system  
+✅ Chat history stored in SQLite  
+✅ Clean, responsive UI using custom `chat.html`
 
 ---
 
 ## 🧰 Tech Stack
 
-| Component | Description |
-|----------|-------------|
-| **Python** | Core language |
-| **FastAPI** | Web backend framework |
-| **LangChain** | Framework for document parsing & LLM pipelines |
-| **ChromaDB** | Vector database for semantic search |
-| **OpenAI / Other LLMs** | For natural language responses |
-| **SpeechRecognition / pyttsx3** | For voice I/O (optional) |
+| Component                     | Description |
+|-------------------------------|-------------|
+| **Python**                    | Core language |
+| **FastAPI**                   | Web backend framework |
+| **LangChain**                 | Document parsing & LLM pipelines |
+| **ChromaDB**                  | Vector DB for semantic search |
+| **Gemini 1.5 Flash**          | Google’s LLM for response generation |
+| **SQLite**                    | User login and chat history |
+| **SpeechRecognition / pyttsx3** | Optional voice input/output |
+| **WebSocket**                 | Real-time chat streaming |
+| **Custom Frontend (chat.html)** | Modern UI, ChatGPT-style UX |
 
 ---
 
 ## 🗂️ Documentation Sections
 
-| Page | Description |
-|------|-------------|
-| [Overview](overview.md) | High-level architecture and workflow |
-| [App](app.md) | Details of the FastAPI backend |
-| [Load Documents](load_documents.md) | How documents are loaded and embedded |
-| [Setup](setup.md) | Setup and installation instructions |
-| [Structure](structure.md) | Project folder and file layout |
+| Page                  | Description |
+|-----------------------|-------------|
+| [Overview](overview.md)         | High-level architecture and flow |
+| [App](app.md)                   | FastAPI backend, endpoints, models |
+| [Load Documents](load_documents.md) | Document ingestion and vector indexing |
+| [Setup](setup.md)               | Environment setup and dependencies |
+| [Structure](structure.md)       | File and folder layout of the project |
 
+---
+
+## 📍 Tip
+
+Use this documentation to understand the **architecture**, **APIs**, and **deployment steps** for Budger. Whether you are maintaining the system or contributing new features — this is your guide.
+
+---

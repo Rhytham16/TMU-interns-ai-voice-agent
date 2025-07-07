@@ -1,71 +1,107 @@
-# 📄 `load_documents.py` – Document Loader & Vectorizer
+#  `load_documents.py` – Knowledge Base Loader for Budger AI
 
-The `load_documents.py` script powers the backend’s ability to **understand and retrieve information from your local documents**.
+The `load_documents.py` script is responsible for **loading a knowledge base PDF into the vector store**, allowing Budger to answer user queries based on relevant company documents.
 
-It loads files (PDFs, Word docs, and text files), breaks them into chunks, converts them into embeddings using **OpenAI or other LLM models**, and stores them in **ChromaDB** for lightning-fast semantic search.
-
----
-
-## 🎯 Purpose
-
-To preprocess and convert documents into a **vector store** that the voice agent can later query intelligently.
-
-> This allows the assistant to answer user questions based on your custom documents using embeddings + similarity search.
+It uses:
+-  `PyPDFLoader` from `langchain_community` to read PDFs
+-  `RecursiveCharacterTextSplitter` to break text into chunks
+-  `GoogleGenerativeAIEmbeddings` for semantic vectorization
+-  `Chroma` to store and persist embeddings for fast search
 
 ---
 
-## 🛠️ What the Script Does
+##  What It Does
 
 | Step | Description |
 |------|-------------|
-| 📂 Load Files | Reads `.pdf`, `.txt`, `.docx` files from `data/` folder |
-| ✂️ Chunking | Splits large documents into manageable text chunks |
-| 🧠 Embedding | Converts each chunk into a vector using OpenAI or HuggingFace |
-| 🗃️ Store | Saves the vectors in **ChromaDB** (local vector database) |
+|  Detects PDF | Searches for `Sales AI Agent Knowledgebase (1).pdf` in common folders |
+|  Checks Prereqs | Confirms `.env` and `GEMINI_API_KEY` are set |
+|  Splits Text | Breaks PDF content into smaller chunks for embedding |
+|  Embeds | Converts chunks into vectors using Gemini embeddings |
+|  Saves | Stores the vectors in `enhanced_chroma_store` via ChromaDB |
 
 ---
 
-## 🧾 Sample Workflow
+## ⚙️ Usage
+
+### Run the loader script
 
 ```bash
 python load_documents.py
 
-## 🔍 Behind the Scenes
+---
 
-### 📥 1. Load Documents
+## ✅ What You’ll See If It Works
 
-```python
-from langchain.document_loaders import DirectoryLoader
+If the PDF is successfully loaded and embedded into the vector store, you’ll see:
 
-loader = DirectoryLoader("data/")
+```text
+✅ Successfully loaded Cogent Infotech knowledge base!
+
+---
+
+??? info " Where to Place Your PDF"
+    The script automatically checks the following paths in order:
+
+    ```text
+    ./Sales AI Agent Knowledgebase (1).pdf
+    ./data/Sales AI Agent Knowledgebase (1).pdf
+    ./documents/Sales AI Agent Knowledgebase (1).pdf
+    ```
+
+    ✅ Make sure your PDF file is saved in one of these locations before running the script.
+
+
+##  Key Code Breakdown
+
+###  1. Load PDF
+
+from langchain_community.document_loaders import PyPDFLoader
+
+loader = PyPDFLoader(pdf_path)
 documents = loader.load()
 
-###✂️ 2. Split into Chunks
+### 2. Split into Chunks
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-chunks = text_splitter.split_documents(documents)
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=800,
+    chunk_overlap=100,
+    separators=["\n\n", "\n", ". ", " ", ""]
+)
+splits = splitter.split_documents(documents)
 
-###🧠 3. Create Embeddings
+### 3. Add Metadata
 
-from langchain.embeddings import OpenAIEmbeddings
+from datetime import datetime
 
-embeddings = OpenAIEmbeddings()
+for split in splits:
+    split.metadata["collection"] = "cogent_sales"
+    split.metadata["timestamp"] = datetime.now().isoformat()
 
-You replace OpenAIEmbeddings() with HuggingFaceEmbeddings, CohereEmbeddings, or others.
 
-###🗃️ 4. Store in ChromaDB
+### 4. Embed & Store Vectors
 
-from langchain.vectorstores import Chroma
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_chroma import Chroma
 
-db = Chroma.from_documents(chunks, embeddings, persist_directory="db/")
-db.persist()
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=os.getenv("GEMINI_API_KEY")
+)
+
+vectorstore = Chroma(
+    persist_directory="enhanced_chroma_store",
+    embedding_function=embeddings
+)
+
+vectorstore.add_documents(splits)
+vectorstore.persist()
+
 
 ✅ Done!
-After running this script, your documents are transformed into a searchable vector format — enabling the AI assistant to answer questions from your custom files.
 
-You’re now ready to ask your assistant anything based on your data!
 
 
 

@@ -9,7 +9,9 @@ theme:
     - navigation.sections
     - navigation.instant
     - toc.integrate
-
+    - content.code.annotate
+    - navigation.top  
+    - navigation.expand
 nav:
   - Home: index.md
   - Overview: overview.md
@@ -30,9 +32,23 @@ plugins:
 markdown_extensions:
   - admonition
   - tables
+  - toc:
+      permalink: true
   - pymdownx.superfences
   - pymdownx.tabbed
   - pymdownx.details
   - pymdownx.magiclink
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji
+  - pymdownx.keys
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Rhytham16/TMU-interns-ai-voice-agent
+    - icon: fontawesome/solid/envelope
+      link: mailto:info@tmu.ac.in
 
 dev_addr: 127.0.0.1:9000

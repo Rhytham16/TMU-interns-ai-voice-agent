@@ -439,3 +439,15 @@
 }
 ]
 [2025-07-07 15:04:42] [INFO] app: WebSocket disconnected for session session_ifmdh1rtw_1751880753529
+[2025-07-07 17:49:11] [INFO] __main__: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-07 17:49:11] [INFO] __main__: Active model: gemini-1.5-flash
+[2025-07-07 17:49:11] [INFO] __main__: Real-time streaming enabled
+[2025-07-07 17:50:16] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-07 17:50:16] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-07 17:50:16] [INFO] app: Real-time streaming enabled
+[2025-07-07 17:50:42] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-07 17:50:42] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-07 17:50:42] [INFO] app: Real-time streaming enabled
+[2025-07-07 17:51:15] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-07 17:51:15] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-07 17:51:15] [INFO] app: Real-time streaming enabled

@@ -1,17 +1,20 @@
-# 🧠 Project Overview: TMU Interns AI Voice Agent
+# 🧠 Project Overview: TMU Interns AI Voice Agent (Budger)
 
-The **TMU Interns AI Voice Agent** is a smart, voice-powered assistant developed by students at **Teerthanker Mahaveer University**.  
-It listens to user queries, understands them using AI, and responds with accurate information — even from uploaded documents!
+The **TMU Interns AI Voice Agent** — code-named **Budger** — is a smart, real-time conversational assistant developed by students at **Teerthanker Mahaveer University (TMU)** in collaboration with **Cogent Infotech**.
+
+It listens to user queries, understands them using advanced language models, and responds with relevant information — even from uploaded documents and company PDFs.
 
 ---
 
 ## 🎙️ What Does It Do?
 
-This AI Voice Agent allows users to:
-- Speak their questions instead of typing
-- Automatically load and process PDF/documents
-- Get instant, intelligent answers using AI
-- Interact with the system just like a conversation
+This AI Voice Agent enables users to:
+
+- 🗣️ Speak or type their questions
+- 📄 Upload and embed documents for semantic search
+- 💬 Get intelligent responses using Google’s Gemini Flash model
+- ⚡ Experience real-time streaming chat, like talking to a person
+- 🔐 Log in securely with session-based memory and chat history
 
 ---
 
@@ -19,50 +22,56 @@ This AI Voice Agent allows users to:
 
 | 🔧 Feature                         | ✅ Description |
 |----------------------------------|----------------|
-| 🎤 **Voice Input & Output**       | Talk to the agent and hear responses |
-| ⚙️ **FastAPI Backend**            | Fast, lightweight web server to handle requests |
-| 📄 **Document Upload & Parsing** | Load and embed your own documents |
-| 🧠 **Semantic Search**            | Find answers using meaning, not just keywords |
-| 🔌 **Modular Design**            | Easy to expand and customize |
-| 🔁 **Real-time Response**         | Quick replies from AI, almost like chatting with a person |
+| 🎤 **Voice & Text Input**         | Optional speech input or keyboard typing |
+| ⚙️ **FastAPI + WebSocket Backend**| Real-time streaming via `/chat/stream` and `/ws` |
+| 📄 **PDF Ingestion & Indexing**   | Documents processed into semantic vectors |
+| 🧠 **Gemini-powered AI**          | Uses **Gemini 1.5 Flash** from Google Generative AI |
+| 🔎 **ChromaDB + LangChain**       | Vector search engine to retrieve relevant content |
+| 🗂️ **User Authentication**        | Login/signup using SQLite |
+| 🧑‍💻 **Custom Frontend UI**        | Modern, responsive interface (`chat.html`) |
 
 ---
 
 ## 🔬 How It Works
 
-1. **You Speak** 🗣️  
-   → Your voice is converted to text (speech-to-text)
+1. **User asks a question** 🗣️  
+   → Input is received via text or optional voice
 
-2. **The System Understands** 🤖  
-   → It uses **natural language processing (NLP)** to understand your question
+2. **Query is analyzed** 🤖  
+   → Gemini interprets the request using prior chat context and vector search
 
-3. **Searches Your Documents** 📄  
-   → It looks through uploaded PDFs using **vector-based search**
+3. **Knowledge is retrieved** 📄  
+   → ChromaDB finds relevant document chunks via semantic similarity
 
-4. **Responds with AI** 💡  
-   → It answers using **OpenAI's language model**
+4. **AI responds intelligently** 💡  
+   → Gemini replies, streamed back word-by-word in real-time
 
 ---
 
 ## 🧰 Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
+| Technology | Role |
+|------------|------|
 | **Python** | Core programming language |
-| **FastAPI** | Backend framework to handle APIs |
-| **LangChain** | Document processing and LLM pipelines |
-| **ChromaDB** | Stores and searches document embeddings |
-| **OpenAI API** | Generates smart, natural replies |
-| **SpeechRecognition / pyttsx3** *(optional)* | Handles voice input/output |
+| **FastAPI** | Backend APIs + WebSocket chat |
+| **LangChain** | Document processing pipeline |
+| **ChromaDB** | Vector storage and similarity search |
+| **Gemini (Google GenAI)** | Main language model for generating responses |
+| **SQLite** | Stores user accounts and chat history |
+| **SpeechRecognition / pyttsx3** *(optional)* | Voice interface |
+| **chat.html** | Custom-built ChatGPT-style frontend |
 
 ---
 
 ## 🏁 Who Is It For?
 
-- 💼 Students working on AI/NLP projects  
-- 📚 Faculty or researchers who want quick answers from documents  
-- 🔧 Developers building intelligent voice-enabled apps
+- 🧑‍🎓 AI/ML students & researchers at TMU  
+- 📚 Faculty needing fast document search  
+- 🛠️ Developers building intelligent assistants  
+- 🧠 Anyone exploring AI chat + document Q&A systems
 
 ---
 
-*Built with ❤️ by TMU Interns. Explore the rest of the documentation to get started!*
+*Built with ❤️ by TMU Interns using modern AI technology.*
+
+Explore the rest of the documentation to get started!

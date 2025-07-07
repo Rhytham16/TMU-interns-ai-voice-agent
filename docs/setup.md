@@ -1,20 +1,23 @@
 # 🛠️ Setup & Installation Guide
 
-Welcome to the setup guide for the **TMU AI Voice Agent Project**.  
-This guide will walk you through installing dependencies, setting up your environment, and running the application locally.
+Welcome to the setup guide for the **TMU AI Voice Agent Project (Budger)**.  
+This assistant uses Google Gemini, LangChain, ChromaDB, and FastAPI to let users search documents and chat with AI — in real time.
 
 ---
 
 ## 🧩 Prerequisites
 
-Make sure you have the following tools installed on your system:
+Make sure the following are installed:
 
-- ✅ **Python 3.10+**
-- ✅ **`uv`** or built-in `venv` for virtual environments
-- ✅ **Git** (optional but recommended)
+- ✅ Python 3.10+
+- ✅ `uv` (or Python `venv`)
+- ✅ Git (optional but useful)
 
-> 🔍 You can check your Python version with:  
-> `python --version`
+Check your versions:
+
+```bash
+python --version
+
 
 ---
 
@@ -60,64 +63,84 @@ pip install -r requirements.txt
 Or manually, you can install core dependencies:
 
 ```bash
-pip install fastapi uvicorn langchain openai chromadb \
+pip install fastapi uvicorn langchain google-generativeai chromadb \
 python-dotenv pydantic aiofiles requests PyPDF2 \
-langchain-openai langchain-core langchain-community \
-langchain-text-splitters websockets numpy SQLAlchemy \
+langchain-core langchain-community \
+langchain-text-splitters websockets SQLAlchemy \
 coloredlogs humanfriendly
 ```
 
 ---
 
-### 🔹 Step 4: Install Voice Libraries
+### 🔹 Step 4: Configure Environment Variables
 
-For **speech input/output**, install these:
+Create a .env file at the project root and add your Gemini API key:
 
 ```bash
-pip install pyaudio SpeechRecognition pyttsx3
+GEMINI_API_KEY=your_google_api_key_here
 ```
 
-> ⚠️ On Windows, `pyaudio` might need this first:
+### 🔹 Step 5: Set Up the SQLite Database
+
 ```bash
-pip install pipwin
-pipwin install pyaudio
+python setup_db.py
+```
+### 🔹 Step 6: Load PDFs (Document Embedding)
+Make sure your PDF is placed in one of the following locations:
+
+```bash
+./
+./data/
+./documents/
+```
+Then run:
+
+```
+python load_documents.py
 ```
 
----
+### 🔹 Step 7: Run the FastAPI App
 
-### 🔹 Step 5: Run the App
+Start the server:
 
 ```bash
 python app.py
 ```
 
-If everything is installed correctly, the app will start at:
+Visit the app in your browser:
 
 ```
 http://localhost:8000
 ```
 
 You can now:
-- Use `/chat` endpoint to query your AI agent.
-- Use `/upload` to add documents.
-- Use `/ws/{session_id}` for WebSocket streaming.
+- Sign up and log in
+- Ask questions from your uploaded documents
+- Chat in real time via WebSocket (/ws/{session_id})
 
 ---
 
-## 🧪 Troubleshooting Tips
+🔊 Optional: Install Voice Features
 
-| Problem                         | Solution                                                                 |
-|---------------------------------|--------------------------------------------------------------------------|
-| 🔺 `activate.ps1` error         | Run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`                |
-| 🔺 `ModuleNotFoundError`        | Make sure your virtual environment is activated                          |
-| 🔺 `localhost not loading`      | Ensure nothing else is using port 8000 or change the port in `app.py`    |
-| 🔺 `pyaudio install error`      | Use `pipwin install pyaudio` instead of plain `pip install`              |
+If you want to enable speech input/output:
+```bash
+pip install pyaudio SpeechRecognition pyttsx3
+```
 
----
+On Windows:
+```
+pip install pipwin
+pipwin install pyaudio
+```
 
-## ✅ You're All Set!
+✅ You're All Set!
+Your voice-enabled AI assistant is now up and running!
+You can explore:
 
-Your local server is now up and running.  
-You're ready to explore document-based conversational AI using LangChain, FastAPI, and OpenAI models.
+🔎 Document-based Q&A via Gemini
 
-Happy coding! 🎉
+⚡ Real-time streaming chat using WebSockets
+
+🧠 Smart document memory powered by LangChain & ChromaDB
+
+Happy building! 🎉
