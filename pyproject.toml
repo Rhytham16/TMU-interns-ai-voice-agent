@@ -1,0 +1,194 @@
+[project]
+name = "budger-ai-assistant"
+version = "3.0.0"
+description = "AI Voice Assistant with OpenAI + RAG for real-time customer support"
+authors = [
+    { name = "Komal Jain", email = "komal.042570@tmu.ac.in" },
+    { name = "Kunal Sharma", email = "kunal.044710@tmu.ac.in" },
+    { name = "Rhytham Jain", email = "rhytham.046557@tmu.ac.in" },
+    { name = "Anshika Jain", email = "anshika.044637@tmu.ac.in" },
+    { name = "Akriti", email = "akriti.045587@tmu.ac.in" },
+    { name = "Aadi Jain", email = "aadi.043848@tmu.ac.in" },
+    { name = "Mohit Patil", email = "mohit.patil@cogentinfo.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["ai", "voice-assistant", "openai", "rag", "fastapi", "langchain"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.30.0",
+    "python-dotenv>=1.0.1",
+    "pydantic>=2.7.1",
+    "pydantic-settings>=2.2.1",
+
+    # OpenAI and LangChain ecosystem
+    "openai>=1.30.1",
+    "langchain>=0.2.0",
+    "langchain-openai>=0.1.8",
+    "langchain-community>=0.2.0",
+    "langchain-chroma>=0.2.4",
+    
+    # Vector DB
+    "chromadb>=0.4.24",
+
+    # Embeddings and LLM Utilities
+    "tiktoken>=0.6.0",
+    "sentence-transformers>=2.3.0",
+
+    # Document parsing
+    "pypdf>=4.1.0",
+    "python-multipart>=0.0.9",
+    "unstructured>=0.13.2",
+    "pdf2image>=1.17.0",
+
+    # Utilities
+    "numpy>=1.26.4",
+    "pandas>=2.2.2",
+    "aiofiles>=23.2.1",
+    "httpx>=0.27.0",
+    "asyncio>=3.4.3",
+
+    # WebSocket and security
+    "websockets>=12.0",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+
+    # Logging
+    "structlog>=24.1.0",
+    "python-json-logger>=2.0.7",
+
+    # Docs
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.15",
+    "mkdocstrings[python]>=0.29.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.2",
+    "pytest-asyncio>=0.23.6",
+    "pytest-cov>=5.0.0",
+    "black>=24.4.2",
+    "isort>=5.13.2",
+    "flake8>=7.0.0",
+    "mypy>=1.10.0",
+    "pre-commit>=3.7.0",
+    "ipython>=8.24.0",
+    "jupyter>=1.0.0",
+    "watchdog>=4.0.0"
+]
+
+production = [
+    "gunicorn>=21.2.0",
+    "prometheus-client>=0.19.0",
+    "sentry-sdk[fastapi]>=1.39.0",
+    "orjson>=3.10.3"
+]
+
+audio = [
+    "speechrecognition>=3.10.0",
+    "pyaudio>=0.2.11",
+    "pydub>=0.25.1",
+    "librosa>=0.10.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/Rhytham16/budger-ai-assistant"
+Documentation = "https://github.com/Rhytham16/budger-ai-assistant#readme"
+Repository = "https://github.com/Rhytham16/budger-ai-assistant.git"
+Issues = "https://github.com/Rhytham16/budger-ai-assistant/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = ["pytest", "black", "isort", "mypy"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\\.pyi?$'
+extend-exclude = '''
+/(
+  \\.eggs
+  | \\.git
+  | \\.mypy_cache
+  | \\.tox
+  | \\.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests"
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/venv/*",
+    "*/.venv/*",
+    "*/env/*",
+    "*/.env/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["TMU-interns-ai-voice-agent-gpt3.5-version"]
