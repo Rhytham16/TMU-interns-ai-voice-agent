@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Assistant Chat UI</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="connection-status" id="connectionStatus">Disconnected</div>
+  
+  <div class="container">
+    <aside class="sidebar">
+      <div class="conversations">
+        <h2>Conversation History</h2>
+        <ul id="conversation-list">
+          <!-- Conversation items will be injected here -->
+        </ul>
+        <button id="new-convo-btn" style="margin:16px 32px 0 32px;padding:10px 0;width:calc(100% - 64px);background:#2196f3;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">+ New Conversation</button>
+      </div>
+      <div class="settings">
+         <h2>Settings</h2>
+        <ul>
+          <li onclick="logout()">
+            <svg class="settings-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Logout
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="header">
+        <span class="icon">🤖</span>
+        Budger AI Assistant
+        <span style="flex:1"></span>
+      </div>
+      <div class="chat-area" id="chat-area">
+        <div class="message-row">
+          <div class="message">Hello! I'm Budger, your AI assistant from Cogent Infotech Corporation. How can I help you today?</div>
+          <div class="timestamp">10:30 AM</div>
+        </div>
+      </div>
+      <form class="input-area" id="chat-form" autocomplete="off">
+        <input type="text" id="chat-input" placeholder="Type your message here..." required />
+        <button type="button" id="mic-btn" title="Voice Input" style="margin-right:6px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#4fc3f7 0%,#2196f3 100%);border:none;border-radius:50%;width:44px;height:44px;box-shadow:0 2px 8px rgba(33,150,243,0.10);cursor:pointer;transition:background 0.2s,box-shadow 0.2s;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" fill="none"/>
+            <path d="M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3s-3 1.34-3 3v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V22h2v-2.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#fff"/>
+          </svg>
+        </button>
+        <button type="submit" id="send-btn" title="Send"><span>&#9658;</span></button>
+      </form>
+    </main>
+  </div>
+  <script src="/static/script.js"></script>
+</body>
+</html>

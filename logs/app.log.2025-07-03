@@ -1,0 +1,385 @@
+[2025-07-03 00:00:54] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:00:54] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:00:54] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:00:54] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:00:54] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:02:35] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:02:35] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:02:35] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:02:35] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:02:35] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:03:01] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:03:01] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:03:01] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:03:01] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:03:01] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:03:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:03:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:03:09] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:03:09] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:03:09] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:04:13] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:04:13] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:04:13] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:04:13] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:04:13] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:04:23] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:04:23] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:04:23] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:04:23] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:04:23] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:04:45] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:04:45] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:04:45] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:04:45] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:04:45] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:05:47] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:05:47] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:05:47] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:05:47] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:05:47] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:06:25] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:06:25] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:06:25] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:06:25] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:06:25] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:07:32] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:07:32] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:07:32] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:07:32] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:07:32] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:07:56] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:07:56] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:07:56] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:07:56] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:07:56] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:08:03] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:08:03] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:08:03] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:08:03] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:08:03] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:08:11] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:08:11] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:08:11] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:08:11] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:08:11] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:08:41] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:08:41] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:08:41] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:08:41] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:08:41] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:09:04] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:09:04] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:09:04] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:09:04] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:09:04] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:09:48] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:09:48] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:09:48] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:09:48] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:09:48] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:10:10] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:10:10] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:10:10] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:10:10] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:10:10] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:10:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:10:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:10:21] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:10:21] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:10:21] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:10:56] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:10:56] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:10:56] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:10:56] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:10:56] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:11:35] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:11:35] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:11:35] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:11:35] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:11:35] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:12:19] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:12:19] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:12:19] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:12:19] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:12:19] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:12:26] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:12:26] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:12:26] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:12:26] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:12:26] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:13:27] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:13:27] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:13:27] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:13:27] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:13:27] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:22:34] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:22:34] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:22:34] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:22:34] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:22:34] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:24:12] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:24:12] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:24:12] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:24:12] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:24:12] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:24:34] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:24:34] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 00:24:34] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 00:24:34] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 00:24:34] [INFO] app: Real-time streaming enabled
+[2025-07-03 00:25:13] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 00:25:26] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 11:36:54] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 11:36:54] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 11:36:54] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 11:36:54] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 11:36:54] [INFO] app: Real-time streaming enabled
+[2025-07-03 11:37:28] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 11:37:46] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 15:01:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:01:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:01:21] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:01:21] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:01:21] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:11:22] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:11:22] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:11:22] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:11:22] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:11:22] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:38:48] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:38:48] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:38:48] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:38:48] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:38:48] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:42:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:42:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:42:09] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:42:09] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:42:09] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:42:45] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:42:45] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:42:45] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:42:45] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:42:45] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:43:45] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:43:45] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:43:45] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:43:45] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:43:45] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:44:02] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 15:45:20] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:45:20] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:45:20] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:45:20] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:45:20] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:45:29] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:45:29] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:45:29] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:45:29] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:45:29] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:45:53] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 15:46:08] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 15:46:24] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 15:47:48] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:47:48] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 15:47:48] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 15:47:48] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 15:47:48] [INFO] app: Real-time streaming enabled
+[2025-07-03 15:48:48] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:10:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 16:10:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 16:10:09] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 16:10:09] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 16:10:09] [INFO] app: Real-time streaming enabled
+[2025-07-03 16:10:25] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:10:28] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 16:10:40] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:10:41] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 16:10:59] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:11:01] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 16:12:11] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:12:13] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 16:12:25] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:12:27] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 16:39:15] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 16:39:15] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 16:39:15] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 16:39:15] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 16:39:15] [INFO] app: Real-time streaming enabled
+[2025-07-03 16:39:31] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:39:34] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 16:39:40] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 16:39:46] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 17:14:46] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:14:46] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:14:46] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 17:14:46] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 17:14:46] [INFO] app: Real-time streaming enabled
+[2025-07-03 17:14:50] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:14:50] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:14:50] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 17:14:50] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 17:14:50] [INFO] app: Real-time streaming enabled
+[2025-07-03 17:20:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:20:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:20:21] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 17:20:21] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 17:20:21] [INFO] app: Real-time streaming enabled
+[2025-07-03 17:21:34] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 17:21:35] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 17:22:32] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:22:32] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:22:32] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 17:22:32] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 17:22:32] [INFO] app: Real-time streaming enabled
+[2025-07-03 17:22:55] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 17:22:57] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 17:23:03] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 17:23:06] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 17:37:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:37:21] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:37:21] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 17:37:21] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 17:37:21] [INFO] app: Real-time streaming enabled
+[2025-07-03 17:37:29] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:37:29] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:37:29] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 17:37:29] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 17:37:29] [INFO] app: Real-time streaming enabled
+[2025-07-03 17:38:01] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 17:38:04] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 17:38:46] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:38:46] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 17:38:46] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 17:38:46] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 17:38:46] [INFO] app: Real-time streaming enabled
+[2025-07-03 18:22:30] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:22:30] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:22:30] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 18:22:30] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 18:22:30] [INFO] app: Real-time streaming enabled
+[2025-07-03 18:22:42] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:22:42] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:22:42] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 18:22:42] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 18:22:42] [INFO] app: Real-time streaming enabled
+[2025-07-03 18:23:02] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 18:57:17] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:57:17] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:57:17] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 18:57:17] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 18:57:17] [INFO] app: Real-time streaming enabled
+[2025-07-03 18:57:17] [INFO] app: Chat history database integration enabled
+[2025-07-03 18:57:28] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:57:28] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:57:28] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 18:57:28] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 18:57:28] [INFO] app: Real-time streaming enabled
+[2025-07-03 18:57:28] [INFO] app: Chat history database integration enabled
+[2025-07-03 18:57:59] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 18:58:18] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:58:18] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 18:58:18] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 18:58:18] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 18:58:18] [INFO] app: Real-time streaming enabled
+[2025-07-03 18:58:18] [INFO] app: Chat history database integration enabled
+[2025-07-03 18:58:20] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 18:59:05] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 19:07:16] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:07:16] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:07:16] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:07:16] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:07:16] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:07:23] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:07:23] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:07:23] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:07:23] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:07:23] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:07:30] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:07:30] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:07:30] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:07:30] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:07:30] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:09:42] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:09:42] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:09:42] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:09:42] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:09:42] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:28:42] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:28:42] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:28:42] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:28:42] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:28:42] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:29:01] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:29:01] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:29:01] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:29:01] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:29:01] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:29:29] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 19:29:36] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 19:39:56] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:39:56] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:39:56] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:39:56] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:39:56] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:41:24] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 19:41:26] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 19:41:44] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 19:41:49] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 19:43:52] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:43:52] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:43:52] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:43:52] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:43:52] [INFO] app: Real-time streaming enabled
+[2025-07-03 19:44:02] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:44:02] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 19:44:02] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 19:44:02] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 19:44:02] [INFO] app: Real-time streaming enabled
+[2025-07-03 20:12:26] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:12:26] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:12:26] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 20:12:26] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 20:12:26] [INFO] app: Real-time streaming enabled
+[2025-07-03 20:12:51] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 20:12:52] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 20:13:10] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 20:13:14] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 20:15:01] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:15:01] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:15:01] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 20:15:01] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 20:15:01] [INFO] app: Real-time streaming enabled
+[2025-07-03 20:15:12] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:15:12] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:15:12] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 20:15:12] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 20:15:12] [INFO] app: Real-time streaming enabled
+[2025-07-03 20:16:04] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 20:16:15] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 20:16:31] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 20:16:35] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 20:28:39] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:28:39] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:28:39] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 20:28:39] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 20:28:39] [INFO] app: Real-time streaming enabled
+[2025-07-03 20:28:55] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:28:55] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 20:28:55] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 20:28:55] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 20:28:55] [INFO] app: Real-time streaming enabled
+[2025-07-03 20:29:34] [ERROR] app: Error retrieving context: Collection.query() got an unexpected keyword argument 'fetch_k'
+[2025-07-03 20:29:47] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 21:23:46] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 21:23:46] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 21:23:46] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 21:23:46] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 21:23:46] [INFO] app: Real-time streaming enabled
+[2025-07-03 21:28:19] [INFO] app: WebSocket disconnected for session default
+[2025-07-03 22:35:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 22:35:09] [ERROR] chromadb.telemetry.product.posthog: Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[2025-07-03 22:35:09] [INFO] app: Budger AI Assistant started with Gemini Flash optimization
+[2025-07-03 22:35:09] [INFO] app: Active model: gemini-1.5-flash
+[2025-07-03 22:35:09] [INFO] app: Real-time streaming enabled
