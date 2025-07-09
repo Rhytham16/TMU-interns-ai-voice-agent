@@ -50,9 +50,9 @@ source .venv/bin/activate  # macOS/Linux
 This project requires several Python packages for FastAPI, LangChain, ChromaDB, OpenAI, and more.
 
 Run the following:
-
-uv sync 
-
+```bash
+uv sync --link-mode=copy
+```
 Or manually, you can install core dependencies:
 
 ```bash
@@ -97,7 +97,11 @@ python load_documents.py
 Start the server:
 
 ```bash
-python app.py or uvicorn app:app --reload
+python app.py 
+```
+Or
+```bash
+uvicorn app:app --reload
 ```
 
 Visit the app in your browser:
