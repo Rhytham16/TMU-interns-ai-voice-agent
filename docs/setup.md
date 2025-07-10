@@ -56,7 +56,7 @@ uv sync
 Or manually, you can install core dependencies:
 
 ```bash
-pip install fastapi uvicorn langchain openai chromadb \
+uv pip install fastapi uvicorn langchain openai chromadb \
 python-dotenv pydantic aiofiles requests PyPDF2 \
 langchain-openai langchain-core langchain-community \
 langchain-text-splitters websockets SQLAlchemy \
@@ -76,7 +76,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 ### 🔹 Step 5: Set Up the SQLite Database
 
 ```bash
-python setup_db.py
+python database.py
 ```
 ### 🔹 Step 6: Load PDFs (Document Embedding)
 Make sure your PDF is placed in one of the following locations:

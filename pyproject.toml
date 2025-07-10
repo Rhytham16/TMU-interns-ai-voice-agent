@@ -40,7 +40,7 @@ dependencies = [
     "langchain-chroma>=0.2.4",
     
     # Vector DB
-    "chromadb>=0.4.24",
+    "chromadb>=1.0.15",
 
     # Embeddings and LLM Utilities
     "tiktoken>=0.6.0",

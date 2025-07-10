@@ -44,7 +44,7 @@ async def load_knowledge_base():
         return False
     
     # Find all PDF files (case-insensitive)
-    pdf_files = glob("data/*.pdf") + glob("data/*.PDF")
+    pdf_files = glob("data/*.pdf")
     
     if not pdf_files:
         print("❌ No PDF files found in the 'data/' directory.")
